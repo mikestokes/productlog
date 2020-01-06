@@ -15,23 +15,24 @@
             class="mx-auto"
             max-width="600">
             <v-card-title>
-              <div class="headline">
+              <div class="headline font-weight-bold ">
                 Welcome to your Product Log 📣
               </div>
+              <v-spacer />
+              <span class="subtitle-2 blue-grey--text text--lighten-2">
+                <em>Not published</em>
+              </span>
             </v-card-title>
-            <v-card-subtitle>
+            <v-card-subtitle class="pt-2">
               <v-chip
                 small
-                class="mt-2 mr-2"
+                class="mr-2"
                 color="primary"
               >
                 Annoucement
               </v-chip>
               <span class="blue-grey--text text--lighten-2">
                 12 days ago
-              </span>
-              <span class="blue-grey--text text--lighten-2">
-                <em>(Draft)</em>
               </span>
             </v-card-subtitle>
             <v-card-text>
@@ -41,8 +42,7 @@
               <v-spacer />
               <v-btn
                 color="primary"
-                text
-                >
+                text>
                 <v-icon left>mdi-pencil</v-icon>
                 Edit
               </v-btn>

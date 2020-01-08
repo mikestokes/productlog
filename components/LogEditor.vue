@@ -47,6 +47,31 @@
 
     <v-row>
       <v-col class="py-0">
+        <v-menu
+          v-model="menu2"
+          :close-on-content-click="false"
+          max-width="290"
+        >
+          <template v-slot:activator="{ on }">
+            <v-text-field
+              :value="computedDateFormattedDatefns"
+              clearable
+              label="Formatted with datefns"
+              readonly
+              v-on="on"
+              @click:clear="date = null"
+            ></v-text-field>
+          </template>
+          <v-date-picker
+            v-model="date"
+            @change="menu2 = false"
+          ></v-date-picker>
+        </v-menu>
+      </v-col>
+    </v-row>
+
+    <v-row>
+      <v-col class="py-0">
         <v-textarea
           clearable
           no-resize
@@ -81,18 +106,28 @@
 </template>
 
 <script>
+import format from 'date-fns/format'
+import parseISO from 'date-fns/parseISO'
 
 export default {
   data () {
     return {
+      menu2: false,
       title: "High school reunion",
       select: 'Announcement',
+      date: new Date().toISOString().substr(0, 10),
       items: [
         'Announcement',
         'Fix',
         'Feature'
       ]
     }
-  }
+  },
+
+  computed: {
+      computedDateFormattedDatefns () {
+        return this.date //? format(parseISO(this.date), 'dddd, MMMM Do YYYY') : ''
+      }
+    }
 }
 </script>

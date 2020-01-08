@@ -22,7 +22,7 @@
         class="mx-auto"
         max-width="600">
         <v-card-title>
-          <div class="headline font-weight-bold ">
+          <div class="headline font-weight-bold">
             Welcome to your Product Log 📣
           </div>
           <v-spacer />

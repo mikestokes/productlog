@@ -50,6 +50,7 @@
       :width="512"
       temporary
       fixed
+      app
     >
       <LogEditor/>
     </v-navigation-drawer>

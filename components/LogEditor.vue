@@ -1,27 +1,35 @@
 <template>
-  <v-card
-    elevation="0"
-    class="ma-1"
-  >
+  <div>
+    <v-toolbar color="white" flat>
+      <v-btn icon>
+        <v-icon>mdi-close</v-icon>
+      </v-btn>
+      <v-toolbar-title class="font-weight-bold">
+        Edit Post
+      </v-toolbar-title>
+    </v-toolbar>
+
+  <v-container>
     <v-row>
-      <v-col class="py-0">
+      <v-col>
         <v-text-field 
           v-model="title"
-          full-width
-          single-line
-          required
+          outlined
           hide-details
-          prepend-inner-icon="mdi-close"
-          class="title font-weight-bold"
+          label="Title of the post"
+          class="headline font-weight-bold"
         ></v-text-field>
       </v-col>
     </v-row>
     
     <v-row>
-      <v-col class="py-0">
+      <v-col cols="6">
         <v-combobox
           v-model="select"
           :items="items"
+          label="Tag this post as an"
+          hide-details
+          outlined
           chips
         >
           <template v-slot:selection="data">
@@ -35,18 +43,15 @@
               @click.stop="data.parent.selectedIndex = data.index"
               @click:close="data.parent.selectItem(data.item)"
             >
-              <!-- <v-avatar class="accent white--text" left>
-                {{ data.item.slice(0, 1).toUpperCase() }}
-              </v-avatar> -->
               {{ data.item }}
             </v-chip>
           </template>
         </v-combobox>
       </v-col>
-    </v-row>
+    <!-- </v-row>
 
-    <v-row>
-      <v-col class="py-0">
+    <v-row> -->
+      <v-col cols="6">
         <v-menu
           v-model="menu2"
           :close-on-content-click="false"
@@ -56,8 +61,10 @@
             <v-text-field
               :value="computedDateFormattedDatefns"
               clearable
-              label="Formatted with datefns"
               readonly
+              outlined
+              hide-details
+              label="Publish the post on"
               v-on="on"
               @click:clear="date = null"
             ></v-text-field>
@@ -71,12 +78,14 @@
     </v-row>
 
     <v-row>
-      <v-col class="py-0">
+      <v-col>
         <v-textarea
           clearable
           no-resize
+          outlined
           rows="15"
-          style="font-family: Monaco, monospace"
+          label="Post content (Markdown)"
+          style="font-family: Monaco, monospace; font-size: 14px;"
         ></v-textarea>
       </v-col>
     </v-row>
@@ -102,7 +111,8 @@
         depressed
       >Save</v-btn>
     </v-card-actions>
-  </v-card>
+  </v-container>
+  </div>
 </template>
 
 <script>
@@ -131,3 +141,9 @@ export default {
     }
 }
 </script>
+
+<style lang="scss">
+.v-select.v-select--chips:not(.v-text-field--single-line).v-text-field--box .v-select__selections, .v-select.v-select--chips:not(.v-text-field--single-line).v-text-field--enclosed .v-select__selections {
+  min-height: auto;
+}
+</style>

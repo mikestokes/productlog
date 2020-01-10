@@ -6,6 +6,7 @@ import firebaseConfig from './firebaseConfig.js'
 
 if (!firebase.apps.length) {
   firebase.initializeApp(firebaseConfig)
+  firebase.analytics()
 }
 
 export const db = firebase.firestore()

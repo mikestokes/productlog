@@ -61,16 +61,18 @@
 </template>
 
 <script>
-import { mapState, mapActions } from 'vuex'
+import { mapGetters, mapActions } from 'vuex'
 
 export default {
-  computed: mapState('entries', [
-    'entries'
-  ]),
+  computed: {
+    ...mapGetters([
+      'log/log',
+      'log/entries'
+    ])
+  },
   
   async fetch ({ store, params }) {
-    await store.dispatch('logs/subscribeToLog', params.id)
-    await store.dispatch('logs/subscribeToLogEntries', params.id)
-  }
+    await store.dispatch('log/subscribeToLog', params.id)
+  },
 }
 </script>

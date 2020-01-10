@@ -6,7 +6,9 @@ import firebaseConfig from './firebaseConfig.js'
 
 if (!firebase.apps.length) {
   firebase.initializeApp(firebaseConfig)
-  firebase.analytics()
+  if (process.client) {
+    firebase.analytics() // uses window
+  }
 }
 
 export const db = firebase.firestore()

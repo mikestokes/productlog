@@ -120,11 +120,7 @@
 </template>
 
 <script>
-import { format, parseISO, isToday } from 'date-fns'
-import dayjs from 'dayjs'
-import relativeTime from 'dayjs/plugin/relativeTime';
-
-dayjs.extend(relativeTime);
+import { fromNow } from '~/utils/date'
 
 export default {
   data () {
@@ -143,9 +139,7 @@ export default {
 
   computed: {
       fromNow () {
-        if (!this.date) return ''
-
-        return isToday(this.date) ? 'Today' : dayjs(this.date).fromNow();
+        return fromNow(this.date)
       }
     }
 }

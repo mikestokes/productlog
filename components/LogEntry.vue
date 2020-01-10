@@ -13,7 +13,7 @@
         Annoucement
       </v-chip>
       <span class="blue-grey--text text--lighten-2">
-        12 days ago
+        {{ publishedFromNow }}
       </span>
     </v-card-subtitle>
     <v-card-title class="pt-0">
@@ -47,11 +47,12 @@
 
 <script>
 import { mapGetters, mapActions } from 'vuex'
+import { fromNow } from '~/utils/date'
 
 export default {
   props: {
     draft: Boolean,
-    published: String,
+    published: Object,
     title: String,
     content: String,
     tags: Array
@@ -61,7 +62,11 @@ export default {
     ...mapGetters({
       canAddLog: 'log/canAddLog',
       canEditLog: 'log/canEditLog'
-    })
+    }),
+
+    publishedFromNow () {
+      return fromNow(this.published.seconds)
+    }
   }
 }
 </script>

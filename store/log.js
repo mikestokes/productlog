@@ -16,6 +16,12 @@ export const getters = {
   },
   entries (state) {
     return state.log.entries
+  },
+  canAddLog (state) {
+    return true
+  },
+  canEditLog (state) {
+    return true
   }
 }
 

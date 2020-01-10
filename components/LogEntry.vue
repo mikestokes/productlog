@@ -2,7 +2,7 @@
   <v-card 
     outlined
     class="mx-auto"
-    max-width="600"
+    max-width="640"
   >
     <v-card-subtitle >
       <v-chip

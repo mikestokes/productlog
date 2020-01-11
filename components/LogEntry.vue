@@ -53,7 +53,7 @@ import { fromNow } from '~/utils/date'
 
 export default {
   props: {
-    id: Number,
+    id: String,
     draft: Boolean,
     published: Object,
     title: String,

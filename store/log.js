@@ -1,5 +1,5 @@
 import { firestoreAction } from 'vuexfire'
-import { log } from '../firebase/collections'
+import { log, entries } from '../firebase/collections'
 
 // TODO
 // export const types = {
@@ -8,6 +8,7 @@ import { log } from '../firebase/collections'
 
 export const state = () => ({
   log: null,
+  entries: [],
   editing: false,
   editingId: null,
   editingPayload: {
@@ -38,7 +39,7 @@ export const getters = {
     return state.log
   },
   entries (state) {
-    return state.log.entries
+    return state.entries
   },
   canAddLog (state) {
     return true
@@ -59,10 +60,13 @@ export const getters = {
 
 export const mutations = {
   editId (state, id) {
+    const entry = state.entries.find(el => el.id === id)
+    if (!entry) return
+
     state.editing = true
     state.editingId = id
     state.editingPayload = {
-      ...state.log.entries[id]
+      ...entry
     }
   },
   cancelEdit (state) {
@@ -100,6 +104,7 @@ export const mutations = {
 export const actions = {
   subscribeToLog: firestoreAction(async ({ bindFirestoreRef }, id) => {
     await bindFirestoreRef('log', log(id), { wait: true })
+    await bindFirestoreRef('entries', entries(id), { wait: true })
   }),
   // async add ({ commit }, entry) {
   //   commit('add', entry)

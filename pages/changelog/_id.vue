@@ -13,7 +13,7 @@
 
         <LogEntry
           v-for="(entry, index) in entries" :key="index"
-          :id="entry.index"
+          :id="entry.id"
           :draft="entry.draft"
           :published="entry.published"
           :title="entry.title"

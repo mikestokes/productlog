@@ -37,6 +37,7 @@
         color="primary"
         text
         v-if="canEditLog"
+        @click="edit"
       >
         <v-icon left>mdi-pencil</v-icon>
         Edit
@@ -46,11 +47,12 @@
 </template>
 
 <script>
-import { mapGetters, mapActions } from 'vuex'
+import { mapGetters, mapMutations, mapActions } from 'vuex'
 import { fromNow } from '~/utils/date'
 
 export default {
   props: {
+    id: Number,
     draft: Boolean,
     published: Object,
     title: String,
@@ -61,11 +63,26 @@ export default {
   computed: {
     ...mapGetters({
       canAddLog: 'log/canAddLog',
-      canEditLog: 'log/canEditLog'
+      canEditLog: 'log/canEditLog',
+      editingId: 'log/editingId'
     }),
+
+    isEditing() {
+      return this.editingId === this.id
+    },
 
     publishedFromNow () {
       return fromNow(this.published.seconds)
+    }
+  },
+
+  methods: {
+    ...mapMutations({
+      editId: 'log/editId'
+    }),
+
+    edit () {
+      this.editId(this.id)
     }
   }
 }

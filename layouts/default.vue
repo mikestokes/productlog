@@ -1,12 +1,12 @@
 <template>
   <v-app>
     <v-app-bar
-      :clipped-left="clipped"
+      :clipped-left="false"
       color="white"
       elevate-on-scroll
       app
     >
-      <v-app-bar-nav-icon @click.stop="drawer = !drawer" />
+      <v-app-bar-nav-icon/>
       <v-toolbar-title v-text="title" />
       <v-spacer />
       <v-btn
@@ -19,8 +19,8 @@
       <nuxt />
     </v-content>
     <v-navigation-drawer
-      v-model="rightDrawer"
-      :right="right"
+      v-model="editingDrawer"
+      :right="true"
       :width="512"
       temporary
       fixed
@@ -32,6 +32,7 @@
 </template>
 
 <script>
+import { mapGetters, mapMutations } from 'vuex'
 import LogEditor from '~/components/LogEditor.vue'
 
 export default {
@@ -39,15 +40,33 @@ export default {
     LogEditor
   },
 
+  computed: {
+    ...mapGetters({
+      editingId: 'log/editingId'
+    }),
+
+    editingDrawer: {
+      get() {
+        return this.editingId !== null
+      },
+      set(val) {
+        if (val === false) {
+          this.cancelEdit()
+        }
+      }
+    }
+  },
+
   data () {
     return {
-      clipped: false,
-      drawer: false,
-      fixed: false,
-      right: true,
-      rightDrawer: true,
       title: 'Product Log'
     }
+  },
+
+  methods: {
+    ...mapMutations({
+      cancelEdit: 'log/cancelEdit'
+    })
   }
 }
 </script>

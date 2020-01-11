@@ -7,7 +7,8 @@ import { log } from '../firebase/collections'
 // }
 
 export const state = () => ({
-  log: null
+  log: null,
+  editingId: null
 })
 
 export const getters = {
@@ -22,10 +23,19 @@ export const getters = {
   },
   canEditLog (state) {
     return true
+  },
+  editingId (state) {
+    return state.editingId
   }
 }
 
 export const mutations = {
+  editId (state, id) {
+    state.editingId = id
+  },
+  cancelEdit (state) {
+    state.editingId = null
+  },
   add (state, entry) {
     state.entries.push(entry)
   }
@@ -35,7 +45,6 @@ export const actions = {
   subscribeToLog: firestoreAction(async ({ bindFirestoreRef }, id) => {
     await bindFirestoreRef('log', log(id), { wait: true })
   }),
-
   async add ({ commit }, entry) {
     commit('add', entry)
   }

@@ -57,7 +57,7 @@
           >
             <template v-slot:activator="{ on }">
               <v-text-field
-                :value="fromNow"
+                :value="publishedFromNow"
                 clearable
                 readonly
                 outlined
@@ -120,6 +120,7 @@
 </template>
 
 <script>
+import { mapGetters, mapMutations, mapActions } from 'vuex'
 import { fromNow } from '~/utils/date'
 
 export default {
@@ -138,10 +139,14 @@ export default {
   },
 
   computed: {
-      fromNow () {
-        return fromNow(this.date)
-      }
+    ...mapGetters({
+      editingId: 'log/editingId'
+    }),
+
+    publishedFromNow () {
+      return fromNow(this.date)
     }
+  }
 }
 </script>
 

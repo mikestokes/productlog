@@ -25,25 +25,22 @@
       <v-row>
         <v-col cols="6">
           <v-combobox
-            v-model="select"
-            :items="items"
-            label="Tag this post as an"
+            v-model="selectedTags"
+            :items="tagTypes"
+            itemText="name"
+            label="Tag this post as"
             hide-details
             outlined
             chips
           >
-            <template v-slot:selection="data">
+            <template v-slot:selection="{ item, attrs, index, selected, disabled }">
               <v-chip
                 small
-                color="primary"
-                :key="JSON.stringify(data.item)"
-                v-bind="data.attrs"
-                :input-value="data.selected"
-                :disabled="data.disabled"
-                @click.stop="data.parent.selectedIndex = data.index"
-                @click:close="data.parent.selectItem(data.item)"
+                text-color="white"
+                :color="item.color"
+                :key="JSON.stringify(item)"
               >
-                {{ data.item }}
+                {{ item.name }}
               </v-chip>
             </template>
           </v-combobox>
@@ -51,7 +48,7 @@
 
         <v-col cols="6">
           <v-menu
-            v-model="menu2"
+            v-model="dateMenu"
             :close-on-content-click="false"
             max-width="290"
           >
@@ -69,7 +66,7 @@
             </template>
             <v-date-picker
               v-model="date"
-              @change="menu2 = false"
+              @change="dateMenu = false"
             ></v-date-picker>
           </v-menu>
         </v-col>
@@ -126,21 +123,21 @@ import { fromNow } from '~/utils/date'
 export default {
   data () {
     return {
-      menu2: false,
+      dateMenu: false,
+      
       title: "High school reunion",
-      select: 'Announcement',
-      date: new Date(),
-      items: [
-        'Announcement',
-        'Fix',
-        'Feature'
-      ]
+      selectedTags: {
+        name: 'Announcement',
+        color: '#7CB342FF'
+      },
+      date: new Date()
     }
   },
 
   computed: {
     ...mapGetters({
-      editingId: 'log/editingId'
+      editingId: 'log/editingId',
+      tagTypes: 'log/tagTypes'
     }),
 
     publishedFromNow () {

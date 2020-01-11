@@ -4,6 +4,7 @@
     color="primary"
     class="mb-3"
     v-if="canAddLog"
+    @click.stop="newEntryClick"
   >
     <v-icon>mdi-add</v-icon>
     New Post...
@@ -11,13 +12,23 @@
 </template>
 
 <script>
-import { mapGetters, mapActions } from 'vuex'
+import { mapGetters, mapMutations } from 'vuex'
 
 export default {
   computed: {
     ...mapGetters({
       canAddLog: 'log/canAddLog'
     })
+  },
+
+  methods: {
+    ...mapMutations({
+      newEntry: 'log/newEntry'
+    }),
+
+    newEntryClick () {
+      this.newEntry()
+    }
   }
 }
 </script>

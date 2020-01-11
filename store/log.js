@@ -8,7 +8,16 @@ import { log } from '../firebase/collections'
 
 export const state = () => ({
   log: null,
+  editing: false,
   editingId: null,
+  editingPayload: {
+    id: null,
+    draft: null,
+    published: null,
+    title: null,
+    content: null,
+    tags: null
+  },
   tagTypes: [{
     name: 'Announcement',
     color: '#7CB342FF'
@@ -37,20 +46,42 @@ export const getters = {
   canEditLog (state) {
     return true
   },
+  editing (state) {
+    return state.editing
+  },
   editingId (state) {
     return state.editingId
+  },
+  editingPayload (state) {
+    return state.editingPayload
   }
 }
 
 export const mutations = {
   editId (state, id) {
+    state.editing = true
     state.editingId = id
   },
   cancelEdit (state) {
+    state.editing = false
     state.editingId = null
   },
-  add (state, entry) {
-    state.entries.push(entry)
+  newEntry (state) {
+    state.editing = true
+    state.editingPayload = {
+      id: null,
+      draft: true,
+      published: new Date(),
+      title: 'Title',
+      content: 'Content',
+      tags: state.tagTypes[0]
+    }
+  },
+  updateEntry (state, payload) {
+    state.editingPayload = {
+      ...state.editingPayload,
+      ...payload
+    }
   }
 }
 
@@ -58,7 +89,7 @@ export const actions = {
   subscribeToLog: firestoreAction(async ({ bindFirestoreRef }, id) => {
     await bindFirestoreRef('log', log(id), { wait: true })
   }),
-  async add ({ commit }, entry) {
-    commit('add', entry)
-  }
+  // async add ({ commit }, entry) {
+  //   commit('add', entry)
+  // }
 }

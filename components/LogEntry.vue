@@ -18,7 +18,7 @@
     </v-card-subtitle>
     <v-card-title class="pt-0">
       <div class="headline font-weight-bold">
-        {{ title }}
+        {{ isEditing ? editingPayload.title : title }}
       </div>
       <v-spacer />
       <span 
@@ -37,7 +37,7 @@
         color="primary"
         text
         v-if="canEditLog"
-        @click="edit"
+        @click.stop="editClick"
       >
         <v-icon left>mdi-pencil</v-icon>
         Edit
@@ -64,11 +64,13 @@ export default {
     ...mapGetters({
       canAddLog: 'log/canAddLog',
       canEditLog: 'log/canEditLog',
-      editingId: 'log/editingId'
+      editing: 'log/editing',
+      editingId: 'log/editingId',
+      editingPayload: 'log/editingPayload'
     }),
 
     isEditing() {
-      return this.editingId === this.id
+      return this.editing && this.editingId === this.id
     },
 
     publishedFromNow () {
@@ -81,7 +83,7 @@ export default {
       editId: 'log/editId'
     }),
 
-    edit () {
+    editClick () {
       this.editId(this.id)
     }
   }

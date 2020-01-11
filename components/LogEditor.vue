@@ -125,7 +125,7 @@ export default {
     return {
       dateMenu: false,
 
-      title: "High school reunion",
+      // title: "High school reunion",
       selectedTags: {
         name: 'Announcement',
         color: '#7CB342FF'
@@ -136,13 +136,29 @@ export default {
 
   computed: {
     ...mapGetters({
+      tagTypes: 'log/tagTypes',
       editingId: 'log/editingId',
-      tagTypes: 'log/tagTypes'
+      editingPayload: 'log/editingPayload'
     }),
+
+    title: {
+      get () {
+        return this.editingPayload.title
+      },
+      set (val) {
+        this.updateEntry({ title: val })
+      }
+    },
 
     publishedFromNow () {
       return fromNow(this.date)
     }
+  },
+
+  methods: {
+    ...mapMutations({
+      updateEntry: 'log/updateEntry'
+    })
   }
 }
 </script>

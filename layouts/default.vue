@@ -42,12 +42,12 @@ export default {
 
   computed: {
     ...mapGetters({
-      editingId: 'log/editingId'
+      editing: 'log/editing'
     }),
 
     editingDrawer: {
       get() {
-        return this.editingId !== null
+        return this.editing
       },
       set(val) {
         if (val === false) {

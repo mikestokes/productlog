@@ -30,7 +30,8 @@
       </span>
     </v-card-title>
     <v-card-text >
-      <div v-html="content"></div>
+      <!-- <div v-html="editingPayload.content"></div> -->
+      <div v-html="isEditing ? editingPayload.content : content"></div>
     </v-card-text>
     <v-card-actions>
       <v-spacer />

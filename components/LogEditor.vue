@@ -81,6 +81,7 @@
             rows="15"
             label="Post content (Markdown)"
             style="font-family: Monaco, monospace; font-size: 14px;"
+            v-model="content"
           ></v-textarea>
         </v-col>
       </v-row>
@@ -125,11 +126,6 @@ export default {
     return {
       dateMenu: false,
 
-      // title: "High school reunion",
-      // selectedTags: {
-      //   name: 'Announcement',
-      //   color: '#7CB342FF'
-      // },
       date: new Date().toISOString().substr(0, 10)
     }
   },
@@ -147,6 +143,15 @@ export default {
       },
       set (val) {
         this.updateEntry({ title: val })
+      }
+    },
+
+    content: {
+      get () {
+        return this.editingPayload.content
+      },
+      set (val) {
+        this.updateEntry({ content: val })
       }
     },
 

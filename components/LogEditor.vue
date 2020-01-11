@@ -124,13 +124,13 @@ export default {
   data () {
     return {
       dateMenu: false,
-      
+
       title: "High school reunion",
       selectedTags: {
         name: 'Announcement',
         color: '#7CB342FF'
       },
-      date: new Date()
+      date: new Date().toISOString().substr(0, 10)
     }
   },
 

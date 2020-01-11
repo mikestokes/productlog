@@ -61,13 +61,25 @@ export const mutations = {
   editId (state, id) {
     state.editing = true
     state.editingId = id
+    state.editingPayload = {
+      ...state.log.entries[id]
+    }
   },
   cancelEdit (state) {
     state.editing = false
     state.editingId = null
+    state.editingPayload = {
+      id: null,
+      draft: null,
+      published: null,
+      title: null,
+      content: null,
+      tag: null
+    }
   },
   newEntry (state) {
     state.editing = true
+    state.editingId = null
     state.editingPayload = {
       id: null,
       draft: true,

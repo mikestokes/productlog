@@ -48,19 +48,19 @@
 
         <v-col cols="6">
           <v-menu
+            max-width="290"
             v-model="dateMenu"
             :close-on-content-click="false"
-            max-width="290"
           >
             <template v-slot:activator="{ on }">
               <v-text-field
-                :value="publishedFromNow"
                 clearable
                 readonly
                 outlined
                 hide-details
                 label="Publish the post on"
                 v-on="on"
+                :value="publishedFromNow"
                 @click:clear="date = null"
               ></v-text-field>
             </template>

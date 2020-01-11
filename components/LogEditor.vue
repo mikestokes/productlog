@@ -25,7 +25,7 @@
       <v-row>
         <v-col cols="6">
           <v-combobox
-            v-model="selectedTags"
+            v-model="tag"
             :items="tagTypes"
             itemText="name"
             label="Tag this post as"
@@ -126,10 +126,10 @@ export default {
       dateMenu: false,
 
       // title: "High school reunion",
-      selectedTags: {
-        name: 'Announcement',
-        color: '#7CB342FF'
-      },
+      // selectedTags: {
+      //   name: 'Announcement',
+      //   color: '#7CB342FF'
+      // },
       date: new Date().toISOString().substr(0, 10)
     }
   },
@@ -150,6 +150,15 @@ export default {
       }
     },
 
+    tag: {
+      get () {
+        return this.editingPayload.tag
+      },
+      set (val) {
+        this.updateEntry({ tag: val })
+      }
+    },
+
     publishedFromNow () {
       return fromNow(this.date)
     }
@@ -164,7 +173,8 @@ export default {
 </script>
 
 <style lang="scss">
-.v-select.v-select--chips:not(.v-text-field--single-line).v-text-field--box .v-select__selections, .v-select.v-select--chips:not(.v-text-field--single-line).v-text-field--enclosed .v-select__selections {
+.v-select.v-select--chips:not(.v-text-field--single-line).v-text-field--box .v-select__selections, 
+.v-select.v-select--chips:not(.v-text-field--single-line).v-text-field--enclosed .v-select__selections {
   min-height: auto;
 }
 .v-application--is-ltr .v-textarea.v-text-field--enclosed .v-text-field__slot textarea {

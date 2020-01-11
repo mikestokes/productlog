@@ -18,7 +18,7 @@
           :published="entry.published"
           :title="entry.title"
           :content="entry.content"
-          :tags="entry.tags"
+          :tag="entry.tag"
         />
         
       </v-col>

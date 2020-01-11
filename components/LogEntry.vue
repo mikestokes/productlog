@@ -8,9 +8,10 @@
       <v-chip
         small
         class="mr-2"
-        color="primary"
+        text-color="white"
+        :color="isEditing ? editingPayload.tag.color : tag.color"
       >
-        Annoucement
+        {{ isEditing ? editingPayload.tag.name : tag.name }}
       </v-chip>
       <span class="blue-grey--text text--lighten-2">
         {{ publishedFromNow }}
@@ -57,7 +58,7 @@ export default {
     published: Object,
     title: String,
     content: String,
-    tags: Array
+    tag: Object
   },
 
   computed: {

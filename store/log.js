@@ -16,7 +16,7 @@ export const state = () => ({
     published: null,
     title: null,
     content: null,
-    tags: null
+    tag: null
   },
   tagTypes: [{
     name: 'Announcement',
@@ -74,7 +74,7 @@ export const mutations = {
       published: new Date(),
       title: 'Title',
       content: 'Content',
-      tags: state.tagTypes[0]
+      tag: state.tagTypes[0]
     }
   },
   updateEntry (state, payload) {

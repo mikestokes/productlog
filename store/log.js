@@ -1,5 +1,6 @@
 import { firestoreAction } from 'vuexfire'
 import { log, entries } from '../firebase/collections'
+import marked from 'marked'
 
 // TODO
 // export const types = {
@@ -16,7 +17,8 @@ export const state = () => ({
     draft: null,
     published: null,
     title: null,
-    content: null,
+    markdown: null,
+    html: null,
     tag: null
   },
   tagTypes: [{
@@ -61,7 +63,8 @@ export const getters = {
 export const mutations = {
   editId (state, id) {
     const entry = state.entries.find(el => el.id === id)
-    if (!entry) return
+    if (!entry) 
+      return
 
     state.editing = true
     state.editingId = id
@@ -77,7 +80,8 @@ export const mutations = {
       draft: null,
       published: null,
       title: null,
-      content: null,
+      markdown: null,
+      html: null,
       tag: null
     }
   },
@@ -89,14 +93,16 @@ export const mutations = {
       draft: true,
       published: new Date(),
       title: 'Title',
-      content: 'Content',
+      markdown: '# Heading',
+      html: marked('# Heading'),
       tag: state.tagTypes[0]
     }
   },
   updateEntry (state, payload) {
     state.editingPayload = {
       ...state.editingPayload,
-      ...payload
+      ...payload,
+      html: marked(payload.markdown || state.editingPayload.markdown)
     }
   }
 }

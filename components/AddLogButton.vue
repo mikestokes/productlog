@@ -6,7 +6,7 @@
     v-if="canAddLog"
     @click.stop="newEntryClick"
   >
-    <v-icon>mdi-add</v-icon>
+    <v-icon>mdi-plus</v-icon>
     New Post...
   </v-btn>
 </template>

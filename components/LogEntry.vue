@@ -26,12 +26,11 @@
         class="subtitle-2 blue-grey--text text--lighten-2"
         v-if="draft"
         >
-        <em>Not published</em>
+        <em>Draft</em>
       </span>
     </v-card-title>
     <v-card-text >
-      <!-- <div v-html="editingPayload.content"></div> -->
-      <div v-html="isEditing ? editingPayload.content : content"></div>
+      <div v-html="isEditing ? editingPayload.html : html"></div>
     </v-card-text>
     <v-card-actions>
       <v-spacer />
@@ -58,7 +57,8 @@ export default {
     draft: Boolean,
     published: Object,
     title: String,
-    content: String,
+    markdown: String,
+    html: String,
     tag: Object
   },
 
@@ -76,7 +76,7 @@ export default {
     },
 
     publishedFromNow () {
-      return fromNow(this.published.seconds)
+      return fromNow(this.isEditing ? this.editingPayload.published : this.published)
     }
   },
 

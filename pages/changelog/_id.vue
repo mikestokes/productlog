@@ -17,7 +17,8 @@
           :draft="entry.draft"
           :published="entry.published"
           :title="entry.title"
-          :content="entry.content"
+          :markdown="entry.markdown"
+          :html="entry.html"
           :tag="entry.tag"
         />
         

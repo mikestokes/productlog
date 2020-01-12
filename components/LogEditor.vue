@@ -1,8 +1,8 @@
 <template>
   <div>
     <v-toolbar color="white" flat>
-      <v-btn icon>
-        <v-icon>mdi-close</v-icon>
+      <v-btn icon @click.stop="cancelEdit">
+        <v-icon>mdi-arrow-left</v-icon>
       </v-btn>
       <v-toolbar-title class="font-weight-bold">
         Edit Post
@@ -10,6 +10,58 @@
     </v-toolbar>
 
     <v-container class="d-flex flex-column">
+      <!-- Tag and Publish Date -->
+      <v-row>
+        <!-- Tag -->
+        <v-col cols="6">
+          <v-combobox
+            itemText="name"
+            label="Tag this post as"
+            hide-details
+            chips
+            outlined
+            v-model="tag"
+            :items="tagTypes"
+          >
+            <template v-slot:selection="{ item, attrs, index }">
+              <v-chip
+                small
+                text-color="white"
+                :color="item.color"
+                :key="index"
+              >
+                {{ item.name }}
+              </v-chip>
+            </template>
+          </v-combobox>
+        </v-col>
+
+        <!-- Publish Date -->
+        <v-col cols="6">
+          <v-menu
+            max-width="290"
+            v-model="dateMenu"
+            :close-on-content-click="false"
+          >
+            <template v-slot:activator="{ on }">
+              <v-text-field
+                readonly
+                outlined
+                hide-details
+                label="Publish the post on"
+                v-on="on"
+                :value="publishedFromNow"
+              ></v-text-field>
+            </template>
+            <v-date-picker
+              v-model="datepickerDate"
+              @change="dateMenu = false"
+            ></v-date-picker>
+          </v-menu>
+        </v-col>
+      </v-row>
+
+      <!-- Title -->
       <v-row>
         <v-col>
           <v-text-field 
@@ -21,73 +73,24 @@
           ></v-text-field>
         </v-col>
       </v-row>
-      
-      <v-row>
-        <v-col cols="6">
-          <v-combobox
-            v-model="tag"
-            :items="tagTypes"
-            itemText="name"
-            label="Tag this post as"
-            hide-details
-            outlined
-            chips
-          >
-            <template v-slot:selection="{ item, attrs, index, selected, disabled }">
-              <v-chip
-                small
-                text-color="white"
-                :color="item.color"
-                :key="JSON.stringify(item)"
-              >
-                {{ item.name }}
-              </v-chip>
-            </template>
-          </v-combobox>
-        </v-col>
 
-        <v-col cols="6">
-          <v-menu
-            max-width="290"
-            v-model="dateMenu"
-            :close-on-content-click="false"
-          >
-            <template v-slot:activator="{ on }">
-              <v-text-field
-                clearable
-                readonly
-                outlined
-                hide-details
-                label="Publish the post on"
-                v-on="on"
-                :value="publishedFromNow"
-                @click:clear="date = null"
-              ></v-text-field>
-            </template>
-            <v-date-picker
-              v-model="date"
-              @change="dateMenu = false"
-            ></v-date-picker>
-          </v-menu>
-        </v-col>
-      </v-row>
-
+      <!-- Content -->
       <v-row>
         <v-col>
           <v-textarea
-            clearable
             no-resize
             outlined
             rows="15"
             label="Post content (Markdown)"
             style="font-family: Monaco, monospace; font-size: 14px;"
-            v-model="content"
+            v-model="markdown"
           ></v-textarea>
         </v-col>
       </v-row>
       
       <v-spacer></v-spacer>
   
+      <!-- Toolbar -->
       <v-row>
         <v-col>
           <v-divider></v-divider>
@@ -98,13 +101,23 @@
             >
               Delete
             </v-btn>
-            <v-spacer></v-spacer>
+
             <v-btn
               text
               color="grey"
+              @click.stop="cancelEdit"
             >
               Cancel
             </v-btn>
+            <v-spacer></v-spacer>
+
+            <v-switch 
+              class="mr-2"
+              inset 
+              v-model="draft" 
+              label="Save as draft"
+            ></v-switch>
+
             <v-btn
               class="white--text"
               color="primary"
@@ -119,14 +132,12 @@
 
 <script>
 import { mapGetters, mapMutations, mapActions } from 'vuex'
-import { fromNow } from '~/utils/date'
+import { fromNow, dateFromDateOrTimestamp } from '~/utils/date'
 
 export default {
   data () {
     return {
-      dateMenu: false,
-
-      date: new Date().toISOString().substr(0, 10)
+      dateMenu: false
     }
   },
 
@@ -137,21 +148,12 @@ export default {
       editingPayload: 'log/editingPayload'
     }),
 
-    title: {
+    draft: {
       get () {
-        return this.editingPayload.title
+        return this.editingPayload.draft
       },
       set (val) {
-        this.updateEntry({ title: val })
-      }
-    },
-
-    content: {
-      get () {
-        return this.editingPayload.content
-      },
-      set (val) {
-        this.updateEntry({ content: val })
+        this.updateEntry({ draft: val })
       }
     },
 
@@ -164,14 +166,43 @@ export default {
       }
     },
 
+    datepickerDate: {
+      get () {
+        // Vuetify requires just the date string
+        return dateFromDateOrTimestamp(this.editingPayload.published).toISOString().substr(0, 10)
+      },
+      set (val) {
+        this.updateEntry({ published: new Date(val) })
+      }
+    },
+
+    title: {
+      get () {
+        return this.editingPayload.title
+      },
+      set (val) {
+        this.updateEntry({ title: val })
+      }
+    },
+
+    markdown: {
+      get () {
+        return this.editingPayload.markdown
+      },
+      set (val) {
+        this.updateEntry({ markdown: val })
+      }
+    },
+
     publishedFromNow () {
-      return fromNow(this.date)
+      return fromNow(dateFromDateOrTimestamp(this.editingPayload.published))
     }
   },
 
   methods: {
     ...mapMutations({
-      updateEntry: 'log/updateEntry'
+      updateEntry: 'log/updateEntry',
+      cancelEdit: 'log/cancelEdit'
     })
   }
 }

@@ -112,7 +112,7 @@
             <v-spacer></v-spacer>
 
             <v-switch 
-              class="mr-2"
+              class="mr-3"
               inset 
               v-model="draft" 
               label="Save as draft"
@@ -195,7 +195,7 @@ export default {
     },
 
     publishedFromNow () {
-      return fromNow(dateFromDateOrTimestamp(this.editingPayload.published))
+      return fromNow(this.editingPayload.published)
     }
   },
 

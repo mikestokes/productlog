@@ -52,7 +52,9 @@ export default {
 
   async mounted () {
     // Rebind Firestore on the client
-    await this.$store.dispatch('log/subscribeToLog', this.$route.params.id)
+    if (process.client) {
+      await this.$store.dispatch('log/subscribeToLog', this.$route.params.id)
+    }
   }
 }
 </script>

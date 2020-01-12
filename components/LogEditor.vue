@@ -122,6 +122,7 @@
               class="white--text"
               color="primary"
               depressed
+              @click.stop="save"
             >Save</v-btn>
           </v-card-actions>
         </v-col>
@@ -203,7 +204,14 @@ export default {
     ...mapMutations({
       updateEntry: 'log/updateEntry',
       cancelEdit: 'log/cancelEdit'
-    })
+    }),
+    ...mapActions({
+      saveEntry: 'log/saveEntry'
+    }),
+
+    async save() {
+      this.saveEntry()
+    }
   }
 }
 </script>

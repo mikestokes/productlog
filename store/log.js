@@ -1,6 +1,7 @@
+import marked from 'marked'
 import { firestoreAction } from 'vuexfire'
 import { log, entries } from '../firebase/collections'
-import marked from 'marked'
+import { Timestamp } from '../firebase'
 
 // TODO
 // export const types = {
@@ -13,7 +14,6 @@ export const state = () => ({
   editing: false,
   editingId: null,
   editingPayload: {
-    id: null,
     draft: null,
     published: null,
     title: null,
@@ -76,7 +76,6 @@ export const mutations = {
     state.editing = false
     state.editingId = null
     state.editingPayload = {
-      id: null,
       draft: null,
       published: null,
       title: null,
@@ -89,13 +88,14 @@ export const mutations = {
     state.editing = true
     state.editingId = null
     state.editingPayload = {
-      id: null,
       draft: true,
       published: new Date(),
       title: 'Title',
       markdown: '# Heading',
       html: marked('# Heading'),
-      tag: state.tagTypes[0]
+      tag: { 
+        ...state.tagTypes[0] 
+      }
     }
   },
   updateEntry (state, payload) {
@@ -112,7 +112,11 @@ export const actions = {
     await bindFirestoreRef('log', log(id), { wait: true })
     await bindFirestoreRef('entries', entries(id), { wait: true })
   }),
-  // async add ({ commit }, entry) {
-  //   commit('add', entry)
-  // }
+  async saveEntry ({ state }) {
+    console.log('ID', state.editingId, state.log.id)
+    // await db.collection('documents').add({
+    //   name: 'A document',
+    //   date: Timestamp.fromDate(new Date('1789-07-14'))
+    // })
+  }
 }

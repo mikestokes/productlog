@@ -11,4 +11,7 @@ if (!firebase.apps.length) {
   }
 }
 
+const { TimeStamp } = firebase.firestore
+export { TimeStamp }
+
 export const db = firebase.firestore()

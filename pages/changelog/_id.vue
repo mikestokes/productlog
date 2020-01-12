@@ -46,7 +46,13 @@ export default {
   },
   
   async fetch ({ store, params }) {
+    // Bind Firestore on the server for SSR
     await store.dispatch('log/subscribeToLog', params.id)
   },
+
+  async mounted () {
+    // Rebind Firestore on the client
+    await this.$store.dispatch('log/subscribeToLog', this.$route.params.id)
+  }
 }
 </script>

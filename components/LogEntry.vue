@@ -19,13 +19,13 @@
     <v-card-subtitle >
       <v-chip
         small
-        class="mr-2"
+        class="mr-2 overline"
         text-color="white"
         :color="isEditing ? editingPayload.tag.color : tag.color"
       >
         {{ isEditing ? editingPayload.tag.name : tag.name }}
       </v-chip>
-      <span class="caption blue-grey--text text--lighten-2">
+      <span class="overline blue-grey--text text--lighten-2">
         {{ publishedFromNow }}
       </span>
     </v-card-subtitle>
@@ -94,6 +94,6 @@ export default {
 
 <style lang="scss">
 .v-card__title + .v-card__subtitle {
-  margin-top: -4px;
+  margin-top: -6px;
 }
 </style>

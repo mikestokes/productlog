@@ -112,7 +112,7 @@ export const actions = {
     await bindFirestoreRef('log', log(id), { wait: true })
     await bindFirestoreRef('entries', entries(id), { wait: true })
   }),
-  async saveEntry ({ state }) {
+  async saveEntry ({ state, commit }) {
     if (state.editingId) {
       await entries(state.log.id).doc(state.editingId).update(state.editingPayload)
     } else {

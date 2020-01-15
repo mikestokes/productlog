@@ -6,6 +6,7 @@
     top
     left
     color="primary"
+    style="z-index: 10"
     v-if="canAddLog"
     @click.stop="newEntryClick"
   >

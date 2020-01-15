@@ -18,15 +18,15 @@
       </span>
     </v-card-subtitle>
     <v-card-title class="pt-0">
-      <div class="headline font-weight-bold">
+      <div class="display-1">
         {{ isEditing ? editingPayload.title : title }}
       </div>
       <v-spacer />
       <span 
-        class="subtitle-2 blue-grey--text text--lighten-2"
+        class="title"
         v-if="draft"
         >
-        <em>Draft</em>
+        Draft
       </span>
     </v-card-title>
     <v-card-text >

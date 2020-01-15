@@ -1,13 +1,15 @@
 <template>
   <v-btn
-    outlined
+    absolute
+    dark
+    fab
+    top
+    left
     color="primary"
-    class="mb-3"
     v-if="canAddLog"
     @click.stop="newEntryClick"
   >
     <v-icon>mdi-plus</v-icon>
-    New Post...
   </v-btn>
 </template>
 

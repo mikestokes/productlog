@@ -6,9 +6,9 @@
       elevate-on-scroll
       app
     >
-      <v-app-bar-nav-icon/>
-      <v-toolbar-title v-text="title" />
+      <!-- <v-toolbar-title v-text="title" /> -->
       <v-spacer />
+      <v-app-bar-nav-icon/>
       <v-btn
         icon
       >

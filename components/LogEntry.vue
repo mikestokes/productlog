@@ -4,6 +4,18 @@
     class="mx-auto"
     max-width="640"
   >
+    <v-card-title>
+      <div class="display-1">
+        {{ isEditing ? editingPayload.title : title }}
+      </div>
+      <v-spacer />
+      <span 
+        class="body-1"
+        v-if="draft"
+      >
+        Draft
+      </span>
+    </v-card-title>
     <v-card-subtitle >
       <v-chip
         small
@@ -13,22 +25,10 @@
       >
         {{ isEditing ? editingPayload.tag.name : tag.name }}
       </v-chip>
-      <span class="blue-grey--text text--lighten-2">
+      <span class="caption blue-grey--text text--lighten-2">
         {{ publishedFromNow }}
       </span>
     </v-card-subtitle>
-    <v-card-title class="pt-0">
-      <div class="display-1">
-        {{ isEditing ? editingPayload.title : title }}
-      </div>
-      <v-spacer />
-      <span 
-        class="title"
-        v-if="draft"
-        >
-        Draft
-      </span>
-    </v-card-title>
     <v-card-text >
       <div v-html="isEditing ? editingPayload.html : html"></div>
     </v-card-text>
@@ -91,3 +91,9 @@ export default {
   }
 }
 </script>
+
+<style lang="scss">
+.v-card__title + .v-card__subtitle {
+  margin-top: -4px;
+}
+</style>

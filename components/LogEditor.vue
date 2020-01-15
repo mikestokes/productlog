@@ -98,6 +98,7 @@
             <v-btn
               text
               color="red"
+              @click.stop="remove"
             >
               Delete
             </v-btn>
@@ -206,11 +207,15 @@ export default {
       cancelEdit: 'log/cancelEdit'
     }),
     ...mapActions({
-      saveEntry: 'log/saveEntry'
+      saveEntry: 'log/saveEntry',
+      removeEntry: 'log/removeEntry'
     }),
 
     async save() {
       this.saveEntry()
+    },
+    async remove() {
+      this.removeEntry()
     }
   }
 }

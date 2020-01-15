@@ -113,10 +113,24 @@ export const actions = {
     await bindFirestoreRef('entries', entries(id), { wait: true })
   }),
   async saveEntry ({ state }) {
-    console.log('ID', state.editingId, state.log.id)
-    // await db.collection('documents').add({
-    //   name: 'A document',
-    //   date: Timestamp.fromDate(new Date('1789-07-14'))
-    // })
+    if (state.editingId) {
+      await entries(state.log.id).doc(state.editingId).update(state.editingPayload)
+    } else {
+      await entries(state.log.id).add(state.editingPayload)
+    }
+    commit('cancelEdit')
+  },
+  async removeEntry ({ state, commit }) {
+    if (!state.editingId) 
+      return
+
+    try {
+      await entries(state.log.id).doc(state.editingId).delete()
+    } catch (e) {
+      console.error(e)
+      return
+    }
+
+    commit('cancelEdit')
   }
 }

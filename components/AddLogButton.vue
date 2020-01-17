@@ -3,10 +3,11 @@
     absolute
     dark
     fab
-    top
-    left
+    bottom
+    right
+    large
     color="primary"
-    style="z-index: 10"
+    class="add-log-button"
     v-if="canAddLog"
     @click.stop="newEntryClick"
   >
@@ -35,3 +36,10 @@ export default {
   }
 }
 </script>
+
+<style lang="scss">
+.add-log-button {
+  margin-bottom: 75px;
+  margin-right: 20px;
+}
+</style>

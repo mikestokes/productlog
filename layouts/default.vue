@@ -1,26 +1,22 @@
 <template>
   <v-app>
     <v-app-bar
-      :clipped-left="false"
-      color="white"
+      color="transparent"
       elevate-on-scroll
+      absolute
       flat
-      prominent
-      app
-    >
-      <div class="d-flex flex-column justify-center align-center" style="width:100%; height: 100%">
-        <div class="display-1 font-weight-black">{{ title }}</div>
-        <div class="overline"><a :href="link">{{ subTitle }}</a></div>
-      </div>
       
+    >
       <v-spacer />
       <v-app-bar-nav-icon/>
-      <v-btn
-        icon
-      >
+      <v-btn icon>
         <v-icon>mdi-account-circle</v-icon>
       </v-btn>
     </v-app-bar>
+    <div class="log-header d-flex flex-column justify-center align-center">
+      <div class="display-1 font-weight-bold">{{ title }}</div>
+      <div class="subtitle-link overline"><a :href="link">{{ subTitle }}</a></div>
+    </div>
     <v-content>
       <nuxt />
     </v-content>
@@ -32,7 +28,7 @@
       fixed
       app
     >
-      <LogEditor/>
+     <LogEditor/>
     </v-navigation-drawer>
   </v-app>
 </template>
@@ -78,3 +74,14 @@ export default {
   }
 }
 </script>
+
+<style lang="scss">
+.log-header {
+  width:100vw;
+  height: 120px;
+
+  .subtitle-link > a {
+    text-decoration: none;
+  }
+}
+</style>

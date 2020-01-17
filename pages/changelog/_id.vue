@@ -10,7 +10,7 @@
         xs="12"
       >
         <AddLogButton/>
-
+       
         <LogEntry
           v-for="(entry, index) in entries" :key="index"
           :id="entry.id"
@@ -28,9 +28,9 @@
 </template>
 
 <script>
+import { mapGetters, mapActions } from 'vuex'
 import AddLogButton from '~/components/AddLogButton'
 import LogEntry from '~/components/LogEntry'
-import { mapGetters, mapActions } from 'vuex'
 
 export default {
   components: {

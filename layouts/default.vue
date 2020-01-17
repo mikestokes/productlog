@@ -4,9 +4,15 @@
       :clipped-left="false"
       color="white"
       elevate-on-scroll
+      flat
+      prominent
       app
     >
-      <!-- <v-toolbar-title v-text="title" /> -->
+      <div class="d-flex flex-column justify-center align-center" style="width:100%; height: 100%">
+        <div class="display-1 font-weight-black">{{ title }}</div>
+        <div class="overline"><a :href="link">{{ subTitle }}</a></div>
+      </div>
+      
       <v-spacer />
       <v-app-bar-nav-icon/>
       <v-btn
@@ -59,7 +65,9 @@ export default {
 
   data () {
     return {
-      title: 'Product Log'
+      title: 'Product Log',
+      subTitle: 'www.productlog.dev',
+      link: 'https://www.productlog.dev'
     }
   },
 

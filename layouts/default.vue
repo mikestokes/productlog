@@ -13,9 +13,12 @@
         <v-icon color="primary">mdi-account-circle</v-icon>
       </v-btn>
     </v-app-bar>
-    <div class="log-header d-flex flex-column justify-center align-center">
-      <div class="display-1 font-weight-bold">{{ title }}</div>
-      <div class="subtitle-link overline"><a :href="link">{{ subTitle }}</a></div>
+    <div class="log-header d-flex justify-center align-center">
+      <div class="logo"><img src="/v.png" :alt="title"/></div>
+      <div class="d-flex flex-column justify-center align-center">
+        <div class="display-1 font-weight-bold">{{ title }}</div>
+        <div class="subtitle-link overline"><a :href="link">{{ subTitle }}</a></div>
+      </div>
     </div>
     <v-content>
       <nuxt />
@@ -79,6 +82,13 @@ export default {
 .log-header {
   width:100vw;
   height: 120px;
+
+  .logo {
+    img {
+      max-height: 48px;
+    }
+    margin-right: 16px;
+  }
 
   .subtitle-link > a {
     text-decoration: none;

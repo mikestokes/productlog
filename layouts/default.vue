@@ -8,9 +8,9 @@
       
     >
       <v-spacer />
-      <v-app-bar-nav-icon/>
+      <v-app-bar-nav-icon color="primary"/>
       <v-btn icon>
-        <v-icon>mdi-account-circle</v-icon>
+        <v-icon color="primary">mdi-account-circle</v-icon>
       </v-btn>
     </v-app-bar>
     <div class="log-header d-flex flex-column justify-center align-center">

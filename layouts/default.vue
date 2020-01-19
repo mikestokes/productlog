@@ -31,18 +31,18 @@
       fixed
       app
     >
-     <LogEditor/>
+     <PostEditor/>
     </v-navigation-drawer>
   </v-app>
 </template>
 
 <script>
 import { mapGetters, mapMutations } from 'vuex'
-import LogEditor from '~/components/LogEditor.vue'
+import PostEditor from '~/components/PostEditor.vue'
 
 export default {
   components: {
-    LogEditor
+    PostEditor
   },
 
   computed: {

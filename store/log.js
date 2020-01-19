@@ -1,7 +1,6 @@
 import marked from 'marked'
 import { firestoreAction } from 'vuexfire'
 import { log, entries } from '../firebase/collections'
-import { Timestamp } from '../firebase'
 
 // TODO
 // export const types = {

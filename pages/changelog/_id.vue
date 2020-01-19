@@ -9,9 +9,9 @@
         sm="12"
         xs="12"
       >
-        <AddLogButton/>
+        <AddPostButton/>
        
-        <LogEntry
+        <PostEntry
           v-for="(entry, index) in entries" :key="index"
           :id="entry.id"
           :draft="entry.draft"
@@ -29,13 +29,13 @@
 
 <script>
 import { mapGetters, mapActions } from 'vuex'
-import AddLogButton from '~/components/AddLogButton'
-import LogEntry from '~/components/LogEntry'
+import AddPostButton from '~/components/AddPostButton'
+import PostEntry from '~/components/PostEntry'
 
 export default {
   components: {
-    AddLogButton,
-    LogEntry
+    AddPostButton,
+    PostEntry
   },
 
   computed: {

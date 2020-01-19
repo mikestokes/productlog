@@ -10,7 +10,7 @@
       <v-spacer />
       <v-app-bar-nav-icon color="primary"/>
       <v-btn icon>
-        <v-icon color="primary">mdi-account-circle</v-icon>
+        <v-icon color="primary">mdi-account-circle-outline</v-icon>
       </v-btn>
     </v-app-bar>
     <div class="log-header d-flex justify-center align-center">

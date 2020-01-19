@@ -1,10 +1,14 @@
 <template>
+<div>
   <v-card 
     outlined
     class="mx-auto"
-    max-width="640"
+    max-width="720"
   >
     <v-card-title>
+      <v-avatar left size="36" class="log-avatar">
+        <v-img src="https://cdn.vuetifyjs.com/images/john.jpg" alt="John"/>
+      </v-avatar>
       <div class="display-1">
         {{ isEditing ? editingPayload.title : title }}
       </div>
@@ -16,7 +20,11 @@
         Draft
       </span>
     </v-card-title>
-    <v-card-subtitle >
+    <v-card-text >
+      <div v-html="isEditing ? editingPayload.html : html"></div>
+    </v-card-text>
+    <v-card-actions>
+      <v-card-subtitle >
       <v-chip
         small
         class="mr-2 overline"
@@ -29,10 +37,6 @@
         {{ publishedFromNow }}
       </span>
     </v-card-subtitle>
-    <v-card-text >
-      <div v-html="isEditing ? editingPayload.html : html"></div>
-    </v-card-text>
-    <v-card-actions>
       <v-spacer />
       <v-btn
         color="primary"
@@ -45,6 +49,7 @@
       </v-btn>
     </v-card-actions>
   </v-card>
+</div>
 </template>
 
 <script>
@@ -92,8 +97,16 @@ export default {
 }
 </script>
 
-<style lang="scss">
+<style lang="scss" scoped>
 .v-card__title + .v-card__subtitle {
   margin-top: -6px;
+}
+.v-card__subtitle {
+  padding-top: 0;
+  padding-bottom: 0;
+  padding-left: 8px;
+}
+.log-avatar {
+  margin-right: 12px;
 }
 </style>

@@ -36,7 +36,7 @@
   </v-app>
 </template>
 
-<script>
+<script lang="ts">
 import { mapGetters, mapMutations } from 'vuex'
 import PostEditor from '~/components/PostEditor.vue'
 
@@ -56,7 +56,7 @@ export default {
       },
       set(val) {
         if (val === false) {
-          this.cancelEdit()
+          this['cancelEdit']
         }
       }
     }

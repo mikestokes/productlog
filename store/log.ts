@@ -1,25 +1,56 @@
+import { GetterTree, ActionTree, MutationTree } from 'vuex'
 import marked from 'marked'
 import { firestoreAction } from 'vuexfire'
 import { log, entries } from '../firebase/collections'
+import { RootState } from '~/store'
 
 // TODO
 // export const types = {
 //   ADD_REQUEST
 // }
 
+export interface EditingPayload {
+  draft?: boolean,
+  published?: Date,
+  title?: string,
+  markdown?: string,
+  html?: string,
+  tag?: Tag
+}
+
+export const emptyEditingPayload = {
+  draft: undefined,
+  published: undefined,
+  title: undefined,
+  markdown: undefined,
+  html: undefined,
+  tag: undefined
+}
+
+export interface Tag {
+  color: string,
+  name: string
+}
+
+export interface Post extends EditingPayload {
+  id?: string
+}
+
+export interface Log {
+  id?: string,
+  title: string,
+  website: string,
+  entry: Post[]
+}
+
+export type LogModuleState = ReturnType<typeof state>
+
 export const state = () => ({
-  log: null,
-  entries: [],
+  log: undefined as unknown as Log,
+  entries: [] as Post[],
   editing: false,
-  editingId: null,
-  editingPayload: {
-    draft: null,
-    published: null,
-    title: null,
-    markdown: null,
-    html: null,
-    tag: null
-  },
+  editingId: undefined,
+  editingPayload: emptyEditingPayload as EditingPayload,
   tagTypes: [{
     name: 'Announcement',
     color: '#7CB342FF'
@@ -29,10 +60,10 @@ export const state = () => ({
   }, {
     name: 'Fix',
     color: '#D81B60FF'
-  }]
+  }] as Tag[]
 })
 
-export const getters = {
+export const getters: GetterTree<LogModuleState, RootState> = {
   tagTypes (state) {
     return state.tagTypes
   },
@@ -59,7 +90,7 @@ export const getters = {
   }
 }
 
-export const mutations = {
+export const mutations: MutationTree<LogModuleState> = {
   editId (state, id) {
     const entry = state.entries.find(el => el.id === id)
     if (!entry) 
@@ -73,19 +104,12 @@ export const mutations = {
   },
   cancelEdit (state) {
     state.editing = false
-    state.editingId = null
-    state.editingPayload = {
-      draft: null,
-      published: null,
-      title: null,
-      markdown: null,
-      html: null,
-      tag: null
-    }
+    state.editingId = undefined
+    state.editingPayload = emptyEditingPayload
   },
   newEntry (state) {
     state.editing = true
-    state.editingId = null
+    state.editingId = undefined
     state.editingPayload = {
       draft: true,
       published: new Date(),
@@ -106,7 +130,7 @@ export const mutations = {
   }
 }
 
-export const actions = {
+export const actions: ActionTree<LogModuleState, RootState> = {
   subscribeToLog: firestoreAction(async ({ bindFirestoreRef }, id) => {
     await bindFirestoreRef('log', log(id), { wait: true })
     await bindFirestoreRef('entries', entries(id), { wait: true })

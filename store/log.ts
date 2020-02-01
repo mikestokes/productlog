@@ -1,8 +1,8 @@
 import { GetterTree, ActionTree, MutationTree } from 'vuex'
-import marked from 'marked'
 import { firestoreAction } from 'vuexfire'
 import { log, entries } from '../firebase/collections'
 import { RootState } from '~/store'
+import marked from 'marked'
 
 // TODO
 // export const types = {

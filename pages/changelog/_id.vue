@@ -11,7 +11,7 @@
       >
         <AddPostButton/>
        
-        <PostEntry
+        <PostCard
           v-for="(entry, index) in entries" :key="index"
           :id="entry.id"
           :draft="entry.draft"
@@ -30,12 +30,12 @@
 <script>
 import { mapGetters, mapActions } from 'vuex'
 import AddPostButton from '~/components/AddPostButton'
-import PostEntry from '~/components/PostEntry'
+import PostCard from '~/components/PostCard'
 
 export default {
   components: {
     AddPostButton,
-    PostEntry
+    PostCard
   },
 
   computed: {

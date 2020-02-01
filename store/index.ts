@@ -1,4 +1,4 @@
-import { GetterTree, ActionTree, MutationTree } from 'vuex'
+import { MutationTree } from 'vuex'
 import { vuexfireMutations } from 'vuexfire'
 
 export const state = () => ({

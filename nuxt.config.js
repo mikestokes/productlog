@@ -77,6 +77,7 @@ module.exports = {
   ** Build configuration
   */
   build: {
+    additionalExtensions: ['ts', 'tsx'],
     /*
     ** You can extend webpack config here
     */

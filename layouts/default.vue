@@ -37,10 +37,11 @@
 </template>
 
 <script lang="ts">
+import Vue from 'vue'
 import { mapGetters, mapMutations } from 'vuex'
 import PostEditor from '~/components/PostEditor.vue'
 
-export default {
+export default Vue.extend({
   components: {
     PostEditor
   },
@@ -51,12 +52,12 @@ export default {
     }),
 
     editingDrawer: {
-      get() {
+      get(): boolean {
         return this.editing
       },
-      set(val) {
+      set(val: boolean) {
         if (val === false) {
-          this['cancelEdit']
+          this.cancelEdit()
         }
       }
     }
@@ -75,7 +76,7 @@ export default {
       cancelEdit: 'log/cancelEdit'
     })
   }
-}
+})
 </script>
 
 <style lang="scss">

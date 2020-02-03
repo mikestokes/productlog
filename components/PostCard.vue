@@ -6,11 +6,11 @@
     max-width="720"
   >
     <v-card-title>
-      <v-avatar left size="36" class="log-avatar">
+      <!-- <v-avatar left size="36" class="log-avatar">
         <v-img src="https://cdn.vuetifyjs.com/images/john.jpg" alt="John"/>
-      </v-avatar>
+      </v-avatar> -->
       <div class="display-1">
-        {{ isEditing ? editingPayload.title : title }}
+        {{ _title }}
       </div>
       <v-spacer />
       <span 
@@ -21,7 +21,7 @@
       </span>
     </v-card-title>
     <v-card-text >
-      <div v-html="isEditing ? editingPayload.html : html"></div>
+      <div v-html="_html"></div>
     </v-card-text>
     <v-card-actions>
       <v-card-subtitle >
@@ -29,12 +29,12 @@
         small
         class="mr-2 overline"
         text-color="white"
-        :color="isEditing ? editingPayload.tag.color : tag.color"
+        :color="_tagColor"
       >
-        {{ isEditing ? editingPayload.tag.name : tag.name }}
+        {{ _tagName }}
       </v-chip>
       <span class="overline blue-grey--text text--lighten-2">
-        {{ publishedFromNow }}
+        {{ _published }}
       </span>
     </v-card-subtitle>
       <v-spacer />
@@ -52,11 +52,14 @@
 </div>
 </template>
 
-<script>
+<script lang="ts">
+import Vue, { PropType }  from 'vue'
 import { mapGetters, mapMutations, mapActions } from 'vuex'
 import { fromNow } from '~/utils/date'
+import { Tag, EditingPayload } from '~/store/types'
+import { Timestamp } from '~/firebase'
 
-export default {
+export default Vue.extend({
   props: {
     id: String,
     draft: Boolean,
@@ -64,7 +67,7 @@ export default {
     title: String,
     markdown: String,
     html: String,
-    tag: Object
+    tag: Object as PropType<Tag>
   },
 
   computed: {
@@ -76,11 +79,27 @@ export default {
       editingPayload: 'log/editingPayload'
     }),
 
-    isEditing() {
+    isEditing (): boolean {
       return this.editing && this.editingId === this.id
     },
 
-    publishedFromNow () {
+    _title () {
+      return this.isEditing ? this.editingPayload.title : this.title
+    },
+
+    _html () {
+      return this.isEditing ? this.editingPayload.html : this.html
+    },
+
+    _tagColor () {
+      return this.isEditing ? this.editingPayload.tag.color : this.tag.color
+    },
+
+    _tagName () {
+      return this.isEditing ? this.editingPayload.tag.name : this.tag.name
+    },
+
+    _published () {
       return fromNow(this.isEditing ? this.editingPayload.published : this.published)
     }
   },
@@ -91,10 +110,10 @@ export default {
     }),
 
     editClick () {
-      this.editId(this.id)
+      this.$store.commit('log/editId', this.id)
     }
   }
-}
+})
 </script>
 
 <style lang="scss" scoped>

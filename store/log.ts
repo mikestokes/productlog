@@ -2,55 +2,21 @@ import { GetterTree, ActionTree, MutationTree } from 'vuex'
 import { firestoreAction } from 'vuexfire'
 import { log, entries } from '../firebase/collections'
 import { RootState } from '~/store'
+import { LogState } from './types'
+import { emptyEditingPayload } from './types'
 import marked from 'marked'
 
-// TODO
-// export const types = {
-//   ADD_REQUEST
-// }
+// NOTE: Nuxt automatically wires up state modules for each file
+// in the store folder.
 
-export interface EditingPayload {
-  draft?: boolean,
-  published?: Date,
-  title?: string,
-  markdown?: string,
-  html?: string,
-  tag?: Tag
-}
+export type LogModuleState = ReturnType<() => LogState>
 
-export const emptyEditingPayload = {
-  draft: undefined,
-  published: undefined,
-  title: undefined,
-  markdown: undefined,
-  html: undefined,
-  tag: undefined
-}
-
-export interface Tag {
-  color: string,
-  name: string
-}
-
-export interface Post extends EditingPayload {
-  id?: string
-}
-
-export interface Log {
-  id?: string,
-  title: string,
-  website: string,
-  entry: Post[]
-}
-
-export type LogModuleState = ReturnType<typeof state>
-
-export const state = () => ({
-  log: undefined as unknown as Log,
-  entries: [] as Post[],
+export const state = (): LogState => ({
+  log: undefined,
+  entries: [],
   editing: false,
   editingId: undefined,
-  editingPayload: emptyEditingPayload as EditingPayload,
+  editingPayload: emptyEditingPayload(),
   tagTypes: [{
     name: 'Announcement',
     color: '#7CB342FF'
@@ -60,7 +26,7 @@ export const state = () => ({
   }, {
     name: 'Fix',
     color: '#D81B60FF'
-  }] as Tag[]
+  }]
 })
 
 export const getters: GetterTree<LogModuleState, RootState> = {
@@ -105,7 +71,7 @@ export const mutations: MutationTree<LogModuleState> = {
   cancelEdit (state) {
     state.editing = false
     state.editingId = undefined
-    state.editingPayload = emptyEditingPayload
+    state.editingPayload = emptyEditingPayload()
   },
   newEntry (state) {
     state.editing = true
@@ -137,9 +103,9 @@ export const actions: ActionTree<LogModuleState, RootState> = {
   }),
   async saveEntry ({ state, commit }) {
     if (state.editingId) {
-      await entries(state.log.id).doc(state.editingId).update(state.editingPayload)
+      await entries(state.log?.id).doc(state.editingId).update(state.editingPayload)
     } else {
-      await entries(state.log.id).add(state.editingPayload)
+      await entries(state.log?.id).add(state.editingPayload)
     }
     commit('cancelEdit')
   },
@@ -148,7 +114,7 @@ export const actions: ActionTree<LogModuleState, RootState> = {
       return
 
     try {
-      await entries(state.log.id).doc(state.editingId).delete()
+      await entries(state.log?.id).doc(state.editingId).delete()
     } catch (e) {
       console.error(e)
       return

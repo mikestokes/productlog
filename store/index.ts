@@ -1,10 +1,12 @@
 import { MutationTree } from 'vuex'
 import { vuexfireMutations } from 'vuexfire'
+import { BaseState } from './types'
 
-export const state = () => ({
+
+export type RootState = ReturnType<() => BaseState>
+
+export const state = (): BaseState => ({
 })
-
-export type RootState = ReturnType<typeof state>
 
 export const mutations : MutationTree<RootState> = {
   // Must export vuexfire mutations from root store not module, see:

@@ -83,14 +83,12 @@ export default Vue.extend({
 .log-header {
   width:100vw;
   height: 120px;
-
   .logo {
     img {
       max-height: 48px;
     }
     margin-right: 16px;
   }
-
   .subtitle-link > a {
     text-decoration: none;
   }

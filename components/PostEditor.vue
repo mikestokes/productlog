@@ -156,7 +156,7 @@ export default Vue.extend({
         return this.editingPayload.draft
       },
       set (val: boolean) {
-        this.update({ draft: val })
+        this.$store.commit('log/updateEntry', { draft: val })
       }
     },
 
@@ -165,7 +165,7 @@ export default Vue.extend({
         return this.editingPayload.tag
       },
       set (val) {
-        this.update({ tag: val })
+        this.$store.commit('log/updateEntry', { tag: val })
       }
     },
 
@@ -174,8 +174,8 @@ export default Vue.extend({
         // Vuetify requires just the date string
         return dateFromDateOrTimestamp(this.editingPayload.published).toISOString().substr(0, 10)
       },
-      set (val) {
-        this.update({ published: new Date(val) })
+      set (val: string) {
+        this.$store.commit('log/updateEntry', { published: new Date(val) })
       }
     },
 
@@ -184,7 +184,7 @@ export default Vue.extend({
         return this.editingPayload.title
       },
       set (val) {
-        this.update({ title: val })
+        this.$store.commit('log/updateEntry', { title: val })
       }
     },
 
@@ -193,7 +193,7 @@ export default Vue.extend({
         return this.editingPayload.markdown
       },
       set (val) {
-        // this.update({ markdown: val })
+        this.$store.commit('log/updateEntry', { markdown: val })
       }
     },
 
@@ -203,9 +203,6 @@ export default Vue.extend({
   },
 
   methods: {
-    update(payload: Object) {
-      this.$store.commit('log/updateEntry', payload)
-    },
     cancel() {
       this.$store.commit('log/cancelEdit')
     },

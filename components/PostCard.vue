@@ -105,10 +105,6 @@ export default Vue.extend({
   },
 
   methods: {
-    ...mapMutations({
-      editId: 'log/editId'
-    }),
-
     editClick () {
       this.$store.commit('log/editId', this.id)
     }

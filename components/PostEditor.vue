@@ -132,11 +132,12 @@
   </div>
 </template>
 
-<script>
+<script lang="ts">
+import Vue from 'vue'
 import { mapGetters, mapMutations, mapActions } from 'vuex'
 import { fromNow, dateFromDateOrTimestamp } from '~/utils/date'
 
-export default {
+export default Vue.extend({
   data () {
     return {
       dateMenu: false
@@ -151,11 +152,11 @@ export default {
     }),
 
     draft: {
-      get () {
+      get (): boolean {
         return this.editingPayload.draft
       },
-      set (val) {
-        this.updateEntry({ draft: val })
+      set (val: boolean) {
+        this.update({ draft: val })
       }
     },
 
@@ -164,7 +165,7 @@ export default {
         return this.editingPayload.tag
       },
       set (val) {
-        this.updateEntry({ tag: val })
+        this.update({ tag: val })
       }
     },
 
@@ -174,7 +175,7 @@ export default {
         return dateFromDateOrTimestamp(this.editingPayload.published).toISOString().substr(0, 10)
       },
       set (val) {
-        this.updateEntry({ published: new Date(val) })
+        this.update({ published: new Date(val) })
       }
     },
 
@@ -183,7 +184,7 @@ export default {
         return this.editingPayload.title
       },
       set (val) {
-        this.updateEntry({ title: val })
+        this.update({ title: val })
       }
     },
 
@@ -192,7 +193,7 @@ export default {
         return this.editingPayload.markdown
       },
       set (val) {
-        this.updateEntry({ markdown: val })
+        // this.update({ markdown: val })
       }
     },
 
@@ -202,23 +203,20 @@ export default {
   },
 
   methods: {
-    ...mapMutations({
-      updateEntry: 'log/updateEntry',
-      cancelEdit: 'log/cancelEdit'
-    }),
-    ...mapActions({
-      saveEntry: 'log/saveEntry',
-      removeEntry: 'log/removeEntry'
-    }),
-
+    update(payload: Object) {
+      this.$store.commit('log/updateEntry', payload)
+    },
+    cancel() {
+      this.$store.commit('log/cancelEdit')
+    },
     async save() {
-      this.saveEntry()
+      this.$store.dispatch('log/saveEntry')
     },
     async remove() {
-      this.removeEntry()
+      this.$store.dispatch('log/removeEntry')
     }
   }
-}
+})
 </script>
 
 <style lang="scss">

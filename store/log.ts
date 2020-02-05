@@ -102,6 +102,9 @@ export const actions: ActionTree<LogModuleState, RootState> = {
     await bindFirestoreRef('entries', entries(id), { wait: true })
   }),
   async saveEntry ({ state, commit }) {
+    if (!state.log?.id) 
+      return
+
     if (state.editingId) {
       await entries(state.log?.id).doc(state.editingId).update(state.editingPayload)
     } else {
@@ -111,6 +114,8 @@ export const actions: ActionTree<LogModuleState, RootState> = {
   },
   async removeEntry ({ state, commit }) {
     if (!state.editingId) 
+      return
+    if (!state.log?.id) 
       return
 
     try {

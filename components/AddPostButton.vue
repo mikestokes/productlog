@@ -15,10 +15,11 @@
   </v-btn>
 </template>
 
-<script>
+<script lang="ts">
+import Vue from 'vue'
 import { mapGetters, mapMutations } from 'vuex'
 
-export default {
+export default Vue.extend({
   computed: {
     ...mapGetters({
       canAddLog: 'log/canAddLog'
@@ -34,7 +35,7 @@ export default {
       this.newEntry()
     }
   }
-}
+})
 </script>
 
 <style lang="scss">

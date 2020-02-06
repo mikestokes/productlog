@@ -16,23 +16,17 @@
 </template>
 
 <script lang="ts">
-import Vue from 'vue'
-import { mapGetters, mapMutations } from 'vuex'
+import { createComponent, computed } from '@vue/composition-api'
 
-export default Vue.extend({
-  computed: {
-    ...mapGetters({
-      canAddLog: 'log/canAddLog'
-    })
-  },
+export default createComponent({
+  setup (props, { root }) {
+    const canAddLog = computed((): boolean => root.$store.getters('log/canAddLog'))
 
-  methods: {
-    ...mapMutations({
-      newEntry: 'log/newEntry'
-    }),
+    const newEntryClick = () => root.$store.commit('log/newEntry')
 
-    newEntryClick () {
-      this.newEntry()
+    return {
+      canAddLog,
+      newEntryClick
     }
   }
 })

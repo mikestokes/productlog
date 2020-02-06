@@ -30,7 +30,8 @@ module.exports = {
   ** Plugins to load before mounting the App
   */
   plugins: [
-     { src: '~/plugins/dayjs.ts' }
+     { src: '~/plugins/dayjs' },
+     { src: '~/plugins/composition-api' }
   ],
   /*
   ** Nuxt.js dev-modules

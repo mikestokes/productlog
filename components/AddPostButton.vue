@@ -20,7 +20,7 @@ import { createComponent, computed } from '@vue/composition-api'
 
 export default createComponent({
   setup (props, { root }) {
-    const canAddLog = computed((): boolean => root.$store.getters('log/canAddLog'))
+    const canAddLog = computed((): boolean => root.$store.getters['log/canAddLog'])
 
     const newEntryClick = () => root.$store.commit('log/newEntry')
 

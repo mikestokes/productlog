@@ -53,13 +53,12 @@
 </template>
 
 <script lang="ts">
-import Vue, { PropType }  from 'vue'
-import { mapGetters, mapMutations, mapActions } from 'vuex'
-import { fromNow } from '~/utils/date'
+import { createComponent, computed, PropType } from '@vue/composition-api'
 import { Tag, EditingPayload } from '~/store/types'
+import { fromNow } from '~/utils/date'
 import { Timestamp } from '~/firebase'
 
-export default Vue.extend({
+export default createComponent({
   props: {
     id: String,
     draft: Boolean,
@@ -70,43 +69,33 @@ export default Vue.extend({
     tag: Object as PropType<Tag>
   },
 
-  computed: {
-    ...mapGetters({
-      canAddLog: 'log/canAddLog',
-      canEditLog: 'log/canEditLog',
-      editing: 'log/editing',
-      editingId: 'log/editingId',
-      editingPayload: 'log/editingPayload'
-    }),
+  setup (props, { root  }) {
+    const canEditLog = computed((): boolean => root.$store.getters['log/canEditLog'])
+    const editing = computed((): boolean => root.$store.getters['log/canEditLog'])
+    const editingId = computed((): string => root.$store.getters['log/editingId'])
+    const editingPayload = computed((): EditingPayload => root.$store.getters['log/editingPayload'])
 
-    isEditing (): boolean {
-      return this.editing && this.editingId === this.id
-    },
+    const isEditing = computed(() => editing && editingId.value === props.id)
+    const _title = computed(() => editing ? editingPayload.value.title : props.title)
+    const _html = computed(() => editing ? editingPayload.value.html : props.html)
+    const _tagColor = computed(() => editing ? editingPayload.value.tag?.color : props.tag?.color)
+    const _tagName = computed(() => editing ? editingPayload.value.tag?.name : props.tag?.name)
+    const _published = computed(() => editing ? editingPayload.value.published : props.published)
 
-    _title () {
-      return this.isEditing ? this.editingPayload.title : this.title
-    },
-
-    _html () {
-      return this.isEditing ? this.editingPayload.html : this.html
-    },
-
-    _tagColor () {
-      return this.isEditing ? this.editingPayload.tag.color : this.tag.color
-    },
-
-    _tagName () {
-      return this.isEditing ? this.editingPayload.tag.name : this.tag.name
-    },
-
-    _published () {
-      return fromNow(this.isEditing ? this.editingPayload.published : this.published)
-    }
-  },
-
-  methods: {
-    editClick () {
-      this.$store.commit('log/editId', this.id)
+    const editClick = () => root.$store.commit('log/editId', props.id)
+    
+    return {
+      canEditLog,
+      editing,
+      editingId,
+      editingPayload,
+      isEditing,
+      _title,
+      _html,
+      _tagColor,
+      _tagName,
+      _published,
+      editClick
     }
   }
 })

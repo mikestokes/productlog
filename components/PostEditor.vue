@@ -133,84 +133,59 @@
 </template>
 
 <script lang="ts">
-import Vue from 'vue'
-import { mapGetters, mapMutations, mapActions } from 'vuex'
+import { createComponent, computed, ref } from '@vue/composition-api'
 import { fromNow, dateFromDateOrTimestamp } from '~/utils/date'
+import { EditingPayload, Tag } from '~/store/types'
 
-export default Vue.extend({
-  data () {
+export default createComponent({
+  setup (props, { root }) {
+    let dateMenu = ref(false)
+
+    const tagTypes = computed((): string => root.$store.getters['log/tagTypes'])
+    const editingId = computed((): Tag[] => root.$store.getters['log/editingId'])
+    const editingPayload = computed((): EditingPayload => root.$store.getters['log/editingPayload'])
+    
+    const draft = computed({
+      get: () => editingPayload.value.draft,
+      set: (val) => root.$store.commit('log/updateEntry', { draft: val })
+    })
+    const tag = computed({
+      get: () => editingPayload.value.tag,
+      set: (val) => root.$store.commit('log/updateEntry', { tag: val })
+    })
+    const datepickerDate = computed({
+      get: () => dateFromDateOrTimestamp(editingPayload.value.published).toISOString().substr(0, 10),
+      set: (val) => root.$store.commit('log/updateEntry', { published: new Date(val) })
+    })
+    const title = computed({
+      get: () => editingPayload.value.title,
+      set: (val) => root.$store.commit('log/updateEntry', { title: val })
+    })
+    const markdown = computed({
+      get: () => editingPayload.value.markdown,
+      set: (val) => root.$store.commit('log/updateEntry', { markdown: val })
+    })
+
+    const publishedFromNow = computed(() => fromNow(editingPayload.value.published))
+
+    const cancel = () => root.$store.commit('log/cancelEdit')
+    const save = async () => root.$store.dispatch('log/saveEntry')
+    const remove = async () => root.$store.dispatch('log/removeEntry')
+
     return {
-      dateMenu: false
-    }
-  },
-
-  computed: {
-    ...mapGetters({
-      tagTypes: 'log/tagTypes',
-      editingId: 'log/editingId',
-      editingPayload: 'log/editingPayload'
-    }),
-
-    draft: {
-      get (): boolean {
-        return this.editingPayload.draft
-      },
-      set (val: boolean) {
-        this.$store.commit('log/updateEntry', { draft: val })
-      }
-    },
-
-    tag: {
-      get () {
-        return this.editingPayload.tag
-      },
-      set (val) {
-        this.$store.commit('log/updateEntry', { tag: val })
-      }
-    },
-
-    datepickerDate: {
-      get () {
-        // Vuetify requires just the date string
-        return dateFromDateOrTimestamp(this.editingPayload.published).toISOString().substr(0, 10)
-      },
-      set (val: string) {
-        this.$store.commit('log/updateEntry', { published: new Date(val) })
-      }
-    },
-
-    title: {
-      get () {
-        return this.editingPayload.title
-      },
-      set (val) {
-        this.$store.commit('log/updateEntry', { title: val })
-      }
-    },
-
-    markdown: {
-      get () {
-        return this.editingPayload.markdown
-      },
-      set (val) {
-        this.$store.commit('log/updateEntry', { markdown: val })
-      }
-    },
-
-    publishedFromNow () {
-      return fromNow(this.editingPayload.published)
-    }
-  },
-
-  methods: {
-    cancel() {
-      this.$store.commit('log/cancelEdit')
-    },
-    async save() {
-      this.$store.dispatch('log/saveEntry')
-    },
-    async remove() {
-      this.$store.dispatch('log/removeEntry')
+      dateMenu,
+      tagTypes,
+      editingId,
+      editingPayload,
+      draft,
+      tag,
+      datepickerDate,
+      title,
+      markdown,
+      publishedFromNow,
+      cancel,
+      save,
+      remove
     }
   }
 })

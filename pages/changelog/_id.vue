@@ -27,34 +27,51 @@
   </v-container>
 </template>
 
-<script>
-import { mapGetters, mapActions } from 'vuex'
-import AddPostButton from '~/components/AddPostButton'
-import PostCard from '~/components/PostCard'
+<script lang="ts">
+import { createComponent, computed, PropType, onServerPrefetch } from '@vue/composition-api'
+import AddPostButton from '~/components/AddPostButton.vue'
+import PostCard from '~/components/PostCard.vue'
+import { useCollection } from '~/use/use-collection'
+import { Post, Log } from '~/store/types'
 
-export default {
+export default createComponent({
   components: {
     AddPostButton,
     PostCard
   },
 
-  computed: {
-    ...mapGetters({
-      log: 'log/log',
-      entries: 'log/entries'
-    })
-  },
-  
-  async fetch ({ store, params }) {
-    // Bind Firestore on the server for SSR
-    await store.dispatch('log/subscribeToLog', params.id)
-  },
+  setup (props, { root }) {
+    const data = useCollection()
 
-  async mounted () {
-    // Rebind Firestore on the client
-    if (process.client) {
-      await this.$store.dispatch('log/subscribeToLog', this.$route.params.id)
+    onServerPrefetch(async () => {
+      // Server prefetch is guaranteed to have an unique context
+      // result.value = await callApi(ssrContext.someId);
+      console.log('_ID::onServerPrefetch', root.$route.params.id)
+      await root.$store.dispatch('log/subscribeToLog', root.$route.params.id)
+    })
+    
+    const log = computed((): Log => root.$store.getters['log/log'])
+    const entries = computed((): Post[] => root.$store.getters['log/entries'])
+
+    return {
+      log,
+      entries,
+      data
     }
   }
-}
+
+
+  
+  // async fetch ({ store, params }) {
+  //   // Bind Firestore on the server for SSR
+  //   await store.dispatch('log/subscribeToLog', params.id)
+  // },
+
+  // async mounted () {
+  //   // Rebind Firestore on the client
+  //   if (process.client) {
+  //     await this.$store.dispatch('log/subscribeToLog', this.$route.params.id)
+  //   }
+  // }
+})
 </script>

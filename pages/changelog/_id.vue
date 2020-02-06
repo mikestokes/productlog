@@ -28,7 +28,7 @@
 </template>
 
 <script lang="ts">
-import { createComponent, computed, PropType, onServerPrefetch } from '@vue/composition-api'
+import { createComponent, computed, PropType, onServerPrefetch, onMounted } from '@vue/composition-api'
 import AddPostButton from '~/components/AddPostButton.vue'
 import PostCard from '~/components/PostCard.vue'
 import { useCollection } from '~/use/use-collection'
@@ -45,9 +45,15 @@ export default createComponent({
 
     onServerPrefetch(async () => {
       // Server prefetch is guaranteed to have an unique context
-      // result.value = await callApi(ssrContext.someId);
-      console.log('_ID::onServerPrefetch', root.$route.params.id)
+      // Bind Firestore on the server for SSR
       await root.$store.dispatch('log/subscribeToLog', root.$route.params.id)
+    })
+
+    onMounted(async () => {
+      // Rebind Firestore on the client
+      if (process.client) {
+        await root.$store.dispatch('log/subscribeToLog', root.$route.params.id)
+      }
     })
     
     const log = computed((): Log => root.$store.getters['log/log'])
@@ -59,19 +65,5 @@ export default createComponent({
       data
     }
   }
-
-
-  
-  // async fetch ({ store, params }) {
-  //   // Bind Firestore on the server for SSR
-  //   await store.dispatch('log/subscribeToLog', params.id)
-  // },
-
-  // async mounted () {
-  //   // Rebind Firestore on the client
-  //   if (process.client) {
-  //     await this.$store.dispatch('log/subscribeToLog', this.$route.params.id)
-  //   }
-  // }
 })
 </script>

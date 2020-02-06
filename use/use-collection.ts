@@ -6,11 +6,8 @@ export const useCollection = () => {
   onServerPrefetch(async () => {
     // Server prefetch is guaranteed to have an unique context
     // result.value = await callApi(ssrContext.someId);
-  console.log('onServerPrefetch')
   result.value =  1;
   })
-
-  console.log('useCollection broseph')
 
   return {
     result

@@ -71,16 +71,15 @@ export default createComponent({
 
   setup (props, { root  }) {
     const canEditLog = computed((): boolean => root.$store.getters['log/canEditLog'])
-    const editing = computed((): boolean => root.$store.getters['log/canEditLog'])
+    const editing = computed((): boolean => root.$store.getters['log/editing'])
     const editingId = computed((): string => root.$store.getters['log/editingId'])
     const editingPayload = computed((): EditingPayload => root.$store.getters['log/editingPayload'])
-
-    const isEditing = computed(() => editing && editingId.value === props.id)
-    const _title = computed(() => editing ? editingPayload.value.title : props.title)
-    const _html = computed(() => editing ? editingPayload.value.html : props.html)
-    const _tagColor = computed(() => editing ? editingPayload.value.tag?.color : props.tag?.color)
-    const _tagName = computed(() => editing ? editingPayload.value.tag?.name : props.tag?.name)
-    const _published = computed(() => editing ? editingPayload.value.published : props.published)
+    const isEditing = computed(() => editing.value && editingId.value === props.id)
+    const _title = computed(() => editing.value ? editingPayload.value.title : props.title)
+    const _html = computed(() => editing.value ? editingPayload.value.html : props.html)
+    const _tagColor = computed(() => editing.value ? editingPayload.value.tag?.color : props.tag?.color)
+    const _tagName = computed(() => editing.value ? editingPayload.value.tag?.name : props.tag?.name)
+    const _published = computed(() => editing.value ? editingPayload.value.published : props.published)
 
     const editClick = () => root.$store.commit('log/editId', props.id)
     

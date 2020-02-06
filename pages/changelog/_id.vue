@@ -10,7 +10,7 @@
         xs="12"
       >
         <AddPostButton/>
-       
+
         <PostCard
           v-for="(entry, index) in entries" :key="index"
           :id="entry.id"

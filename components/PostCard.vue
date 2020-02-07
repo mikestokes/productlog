@@ -79,7 +79,7 @@ export default createComponent({
     const _html = computed(() => isEditing.value ? editingPayload.value.html : props.html)
     const _tagColor = computed(() => isEditing.value ? editingPayload.value.tag?.color : props.tag?.color)
     const _tagName = computed(() => isEditing.value ? editingPayload.value.tag?.name : props.tag?.name)
-    const _published = computed(() => isEditing.value ? editingPayload.value.published : props.published)
+    const _published = computed(() => fromNow(isEditing.value ? editingPayload.value.published : props.published))
 
     const editClick = () => root.$store.commit('log/editId', props.id)
     

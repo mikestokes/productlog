@@ -46,9 +46,9 @@ export default createComponent({
   },
 
   setup(props, { root }) {
-    let title = ref('Product Log')
-    let subTitle = ref('www.productlog.dev')
-    let link = ref('https://www.productlog.dev')
+    const title = ref('Product Log')
+    const subTitle = ref('www.productlog.dev')
+    const link = ref('https://www.productlog.dev')
     
     const editing = computed((): boolean => root.$store.getters['log/editing'])
     const editingDrawer = computed({

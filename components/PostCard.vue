@@ -60,7 +60,10 @@ import { Timestamp } from '~/firebase'
 
 export default createComponent({
   props: {
-    id: String,
+    id: {
+      type: String,
+      required: true
+    },
     draft: Boolean,
     published: Object,
     title: String,

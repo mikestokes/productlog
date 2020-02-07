@@ -139,7 +139,7 @@ import { EditingPayload, Tag } from '~/store/types'
 
 export default createComponent({
   setup (props, { root }) {
-    let dateMenu = ref(false)
+    const dateMenu = ref(false)
 
     const tagTypes = computed((): string => root.$store.getters['log/tagTypes'])
     const editingId = computed((): Tag[] => root.$store.getters['log/editingId'])

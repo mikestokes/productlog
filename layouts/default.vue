@@ -37,44 +37,35 @@
 </template>
 
 <script lang="ts">
-import Vue from 'vue'
-import { mapGetters, mapMutations } from 'vuex'
+import { createComponent, computed, ref } from '@vue/composition-api'
 import PostEditor from '~/components/PostEditor.vue'
 
-export default Vue.extend({
+export default createComponent({
   components: {
     PostEditor
   },
 
-  computed: {
-    ...mapGetters({
-      editing: 'log/editing'
-    }),
-
-    editingDrawer: {
-      get(): boolean {
-        return this.editing
-      },
-      set(val: boolean) {
-        if (val === false) {
-          this.cancelEdit()
-        }
+  setup(props, { root }) {
+    let title = ref('Product Log')
+    let subTitle = ref('www.productlog.dev')
+    let link = ref('https://www.productlog.dev')
+    
+    const editing = computed((): boolean => root.$store.getters['log/editing'])
+    const editingDrawer = computed({
+      get: () => editing.value,
+      set: (val) => {
+        if (val === false)
+          root.$store.commit('log/cancelEdit')
       }
-    }
-  },
-
-  data () {
-    return {
-      title: 'Product Log',
-      subTitle: 'www.productlog.dev',
-      link: 'https://www.productlog.dev'
-    }
-  },
-
-  methods: {
-    ...mapMutations({
-      cancelEdit: 'log/cancelEdit'
     })
+
+    return {
+      title,
+      subTitle,
+      link,
+      editing,
+      editingDrawer
+    }
   }
 })
 </script>

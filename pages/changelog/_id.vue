@@ -44,7 +44,6 @@ export default createComponent({
     const data = useCollection()
 
     onServerPrefetch(async () => {
-      // Server prefetch is guaranteed to have an unique context
       // Bind Firestore on the server for SSR
       await root.$store.dispatch('log/subscribeToLog', root.$route.params.id)
     })

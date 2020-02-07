@@ -23,7 +23,7 @@ export interface Tag {
 }
 
 export interface Post extends EditingPayload {
-  id?: string
+  id: string
 }
 
 export interface Log {

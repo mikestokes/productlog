@@ -1,7 +1,9 @@
 <template>
 </template>
 
-<script>
-export default {
-}
+<script lang="ts">
+import { createComponent } from '@vue/composition-api'
+
+export default createComponent({
+})
 </script>

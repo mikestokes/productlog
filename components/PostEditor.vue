@@ -1,7 +1,7 @@
 <template>
   <div>
     <v-toolbar color="white" flat>
-      <v-btn icon @click.stop="cancelEdit">
+      <v-btn icon @click.stop="cancel">
         <v-icon>mdi-arrow-left</v-icon>
       </v-btn>
       <v-toolbar-title class="font-weight-bold">
@@ -106,7 +106,7 @@
             <v-btn
               text
               color="grey"
-              @click.stop="cancelEdit"
+              @click.stop="cancel"
             >
               Cancel
             </v-btn>

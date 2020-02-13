@@ -14,7 +14,7 @@
         <v-icon color="primary">mdi-account-circle-outline</v-icon>
       </v-btn>
     </v-app-bar>
-    <v-content class="main-content">
+    <v-content class="main-content grey lighten-5">
       <nuxt />
     </v-content>
     <v-navigation-drawer

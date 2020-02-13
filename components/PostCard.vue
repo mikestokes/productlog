@@ -1,8 +1,7 @@
 <template>
-<div>
   <v-card
     outlined
-    class="mx-auto"
+    class="mx-auto card-post"
     max-width="720"
   >
     <v-card-title>
@@ -53,7 +52,6 @@
       </v-btn>
     </v-card-actions>
   </v-card>
-</div>
 </template>
 
 <script lang="ts">

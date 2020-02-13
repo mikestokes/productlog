@@ -3,10 +3,10 @@
     <v-row
       justify="center"
       align="center"
+      class="row-card"
     >
       <v-col
-        md="8"
-        sm="12"
+        sm="8"
         xs="12"
       >
         <AddPostButton/>
@@ -66,3 +66,11 @@ export default createComponent({
   }
 })
 </script>
+
+<style lang="scss">
+.row-card {
+  .card-post {
+    margin-bottom: 24px; 
+  }
+}
+</style>

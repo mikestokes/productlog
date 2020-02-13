@@ -2,6 +2,7 @@
   <v-app>
     <v-app-bar
       color="white"
+      class="toolbar-main"
       elevate-on-scroll
       absolute
       flat
@@ -14,7 +15,7 @@
         <v-icon color="primary">mdi-account-circle-outline</v-icon>
       </v-btn>
     </v-app-bar>
-    <v-content class="main-content grey lighten-5">
+    <v-content class="content-main">
       <nuxt />
     </v-content>
     <v-navigation-drawer
@@ -64,8 +65,14 @@ export default createComponent({
 })
 </script>
 
-<style lang="scss" scoped>
-.main-content {
+<style lang="scss">
+.toolbar-main {
+  .v-toolbar__content {
+    border-bottom: solid 1px #eceff8;
+  }
+}
+.content-main {
   margin-top: 56px;
+  background-color: #f8fbfd;
 }
 </style>

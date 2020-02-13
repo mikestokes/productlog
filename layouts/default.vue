@@ -1,26 +1,20 @@
 <template>
   <v-app>
     <v-app-bar
-      color="transparent"
+      color="white"
       elevate-on-scroll
       absolute
       flat
-      
     >
+      <v-btn icon></v-btn>
+      <v-toolbar-title>{{ title }}</v-toolbar-title>
       <v-spacer />
       <v-app-bar-nav-icon color="primary"/>
       <v-btn icon>
         <v-icon color="primary">mdi-account-circle-outline</v-icon>
       </v-btn>
     </v-app-bar>
-    <div class="log-header d-flex justify-center align-center">
-      <div class="logo"><img src="/v.png" :alt="title"/></div>
-      <div class="d-flex flex-column justify-center align-center">
-        <div class="display-1 font-weight-bold">{{ title }}</div>
-        <div class="subtitle-link overline"><a :href="link">{{ subTitle }}</a></div>
-      </div>
-    </div>
-    <v-content>
+    <v-content class="main-content">
       <nuxt />
     </v-content>
     <v-navigation-drawer
@@ -49,7 +43,7 @@ export default createComponent({
     const title = ref('Product Log')
     const subTitle = ref('www.productlog.dev')
     const link = ref('https://www.productlog.dev')
-    
+
     const editing = computed((): boolean => root.$store.getters['log/editing'])
     const editingDrawer = computed({
       get: () => editing.value,
@@ -70,18 +64,8 @@ export default createComponent({
 })
 </script>
 
-<style lang="scss">
-.log-header {
-  width:100vw;
-  height: 120px;
-  .logo {
-    img {
-      max-height: 48px;
-    }
-    margin-right: 16px;
-  }
-  .subtitle-link > a {
-    text-decoration: none;
-  }
+<style lang="scss" scoped>
+.main-content {
+  margin-top: 56px;
 }
 </style>

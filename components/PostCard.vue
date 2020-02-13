@@ -1,6 +1,6 @@
 <template>
 <div>
-  <v-card 
+  <v-card
     outlined
     class="mx-auto"
     max-width="720"
@@ -9,18 +9,25 @@
       <!-- <v-avatar left size="36" class="log-avatar">
         <v-img src="https://cdn.vuetifyjs.com/images/john.jpg" alt="John"/>
       </v-avatar> -->
-      <div class="display-1">
+      <div class="headline">
         {{ _title }}
       </div>
       <v-spacer />
-      <span 
-        class="body-1"
-        v-if="draft"
-      >
-        Draft
+      <span class="overline blue-grey--text text--lighten-2">
+        {{ _published }}
       </span>
+      <v-btn
+        class="link-share"
+        color="blue-grey lighten-3"
+        text
+        icon
+        small
+        @click.stop="shareClick"
+      >
+        <v-icon left>mdi-share-variant</v-icon>
+      </v-btn>
     </v-card-title>
-    <v-card-text >
+    <v-card-text>
       <div v-html="_html"></div>
     </v-card-text>
     <v-card-actions>
@@ -33,9 +40,6 @@
       >
         {{ _tagName }}
       </v-chip>
-      <span class="overline blue-grey--text text--lighten-2">
-        {{ _published }}
-      </span>
     </v-card-subtitle>
       <v-spacer />
       <v-btn
@@ -62,7 +66,7 @@ export default createComponent({
   props: {
     id: {
       type: String,
-      required: true
+      required: false     // on initial load, won't exist
     },
     draft: Boolean,
     published: Object,
@@ -85,7 +89,8 @@ export default createComponent({
     const _published = computed(() => fromNow(isEditing.value ? editingPayload.value.published : props.published))
 
     const editClick = () => root.$store.commit('log/editId', props.id)
-    
+    const shareClick = () => {}
+
     return {
       canEditLog,
       editing,
@@ -114,5 +119,8 @@ export default createComponent({
 }
 .log-avatar {
   margin-right: 12px;
+}
+.link-share {
+  margin-left: 16px;
 }
 </style>

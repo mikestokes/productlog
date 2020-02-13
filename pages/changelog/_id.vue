@@ -1,6 +1,6 @@
 <template>
   <v-container>
-    <v-row 
+    <v-row
       justify="center"
       align="center"
     >
@@ -13,15 +13,15 @@
 
         <PostCard
           v-for="(entry, index) in entries" :key="index"
-          :id="entry.id"
-          :draft="entry.draft"
-          :published="entry.published"
-          :title="entry.title"
-          :markdown="entry.markdown"
-          :html="entry.html"
-          :tag="entry.tag"
+            :id="entry.id"
+            :draft="entry.draft"
+            :published="entry.published"
+            :title="entry.title"
+            :markdown="entry.markdown"
+            :html="entry.html"
+            :tag="entry.tag"
         />
-        
+
       </v-col>
     </v-row>
   </v-container>
@@ -54,7 +54,7 @@ export default createComponent({
         await root.$store.dispatch('log/subscribeToLog', root.$route.params.id)
       }
     })
-    
+
     const log = computed((): Log => root.$store.getters['log/log'])
     const entries = computed((): Post[] => root.$store.getters['log/entries'])
 

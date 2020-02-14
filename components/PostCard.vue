@@ -3,7 +3,6 @@
     outlined
     class="mx-auto card-post"
     max-width="720"
-    v-if="!isLoading"
     :style="{ borderLeft: `solid 10px ${_tagColor} !important` }"
   >
     <v-card-title>
@@ -82,7 +81,6 @@ export default createComponent({
     const editingId = computed((): string => root.$store.getters['log/editingId'])
     const editingPayload = computed((): EditingPayload => root.$store.getters['log/editingPayload'])
     const isEditing = computed(() => editing.value && editingId.value === props.id)
-    const isLoading = computed(() => !props.id)
     const _title = computed(() => isEditing.value ? editingPayload.value.title : props.title)
     const _html = computed(() => isEditing.value ? editingPayload.value.html : props.html)
     const _tagColor = computed(() => isEditing.value ? editingPayload.value.tag?.color : props.tag?.color)
@@ -98,7 +96,6 @@ export default createComponent({
       editingId,
       editingPayload,
       isEditing,
-      isLoading,
       _title,
       _html,
       _tagColor,

@@ -50,6 +50,7 @@
                 hide-details
                 label="Publish the post on"
                 v-on="on"
+                :disabled="draft"
                 :value="publishedFromNow"
               ></v-text-field>
             </template>

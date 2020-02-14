@@ -70,7 +70,7 @@ export default createComponent({
 <style lang="scss">
 .row-card {
   .card-post {
-    margin-bottom: 24px;
+    margin-bottom: 36px;
     border: solid 1px #eceff8 !important;
   }
 }

@@ -7,7 +7,13 @@
       absolute
       flat
     >
-      <v-btn icon></v-btn>
+      <v-img
+        class="image-logo"
+        max-width="40px"
+        height="40px"
+        :src="logo"
+        :alt="subTitle"
+      />
       <v-toolbar-title>{{ title }}</v-toolbar-title>
       <v-spacer />
       <v-app-bar-nav-icon color="primary"/>
@@ -44,6 +50,7 @@ export default createComponent({
     const title = ref('Product Log')
     const subTitle = ref('www.productlog.dev')
     const link = ref('https://www.productlog.dev')
+    const logo = ref('https://cdn.vuetifyjs.com/images/parallax/material.jpg')
 
     const editing = computed((): boolean => root.$store.getters['log/editing'])
     const editingDrawer = computed({
@@ -58,6 +65,7 @@ export default createComponent({
       title,
       subTitle,
       link,
+      logo,
       editing,
       editingDrawer
     }
@@ -69,10 +77,13 @@ export default createComponent({
 .toolbar-main {
   .v-toolbar__content {
     border-bottom: solid 1px #eceff8;
+    .image-logo {
+      margin-right: 16px;
+    }
   }
 }
 .content-main {
-  margin-top: 56px;
+  padding-top: 72px !important;
   background-color: #f8fbfd;
 }
 </style>

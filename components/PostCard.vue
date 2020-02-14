@@ -1,58 +1,68 @@
 <template>
-  <v-card
-    outlined
-    class="mx-auto card-post"
-    max-width="720"
-    :style="{ borderLeft: `solid 10px ${_tagColor} !important` }"
-  >
-    <v-card-title>
-      <!-- <v-avatar left size="36" class="log-avatar">
-        <v-img src="https://cdn.vuetifyjs.com/images/john.jpg" alt="John"/>
-      </v-avatar> -->
-      <div class="headline">
-        {{ _title }}
-      </div>
-      <v-spacer />
-      <span class="overline blue-grey--text text--lighten-2">
-        {{ _published }}
-      </span>
-      <v-btn
-        class="link-share"
-        color="blue-grey lighten-3"
-        text
-        icon
-        small
-        @click.stop="shareClick"
-      >
-        <v-icon left>mdi-share-variant</v-icon>
-      </v-btn>
-    </v-card-title>
-    <v-card-text>
-      <div v-html="_html"></div>
-    </v-card-text>
-    <v-card-actions>
-      <v-card-subtitle>
-        <!-- <v-chip
+  <div>
+    <v-skeleton-loader
+      class="mx-auto"
+      max-width="720"
+      type="article"
+      v-if="isLoading"
+    ></v-skeleton-loader>
+
+    <v-card
+      outlined
+      class="mx-auto card-post"
+      max-width="720"
+      v-if="!isLoading"
+      :style="{ borderLeft: `solid 10px ${_tagColor} !important` }"
+    >
+      <v-card-title>
+        <!-- <v-avatar left size="36" class="log-avatar">
+          <v-img src="https://cdn.vuetifyjs.com/images/john.jpg" alt="John"/>
+        </v-avatar> -->
+        <div class="headline">
+          {{ _title }}
+        </div>
+        <v-spacer />
+        <span class="overline blue-grey--text text--lighten-2">
+          {{ _published }}
+        </span>
+        <v-btn
+          class="link-share"
+          color="blue-grey lighten-3"
+          text
+          icon
           small
-          class="mr-2 overline"
-          text-color="white"
-          :color="_tagColor"
+          @click.stop="shareClick"
         >
-          {{ _tagName }}
-        </v-chip> -->
-      </v-card-subtitle>
-      <v-spacer />
-      <v-btn
-        color="primary"
-        text
-        v-if="canEditLog"
-        @click.stop="editClick"
-      >
-        <v-icon left>mdi-pencil</v-icon>
-        Edit
-      </v-btn>
-    </v-card-actions>
-  </v-card>
+          <v-icon left>mdi-share-variant</v-icon>
+        </v-btn>
+      </v-card-title>
+      <v-card-text>
+        <div v-html="_html"></div>
+      </v-card-text>
+      <v-card-actions>
+        <v-card-subtitle>
+          <!-- <v-chip
+            small
+            class="mr-2 overline"
+            text-color="white"
+            :color="_tagColor"
+          >
+            {{ _tagName }}
+          </v-chip> -->
+        </v-card-subtitle>
+        <v-spacer />
+        <v-btn
+          color="primary"
+          text
+          v-if="canEditLog"
+          @click.stop="editClick"
+        >
+          <v-icon left>mdi-pencil</v-icon>
+          Edit
+        </v-btn>
+      </v-card-actions>
+    </v-card>
+  </div>
 </template>
 
 <script lang="ts">
@@ -81,6 +91,7 @@ export default createComponent({
     const editingId = computed((): string => root.$store.getters['log/editingId'])
     const editingPayload = computed((): EditingPayload => root.$store.getters['log/editingPayload'])
     const isEditing = computed(() => editing.value && editingId.value === props.id)
+    const isLoading = computed(() => !props.id)
     const _title = computed(() => isEditing.value ? editingPayload.value.title : props.title)
     const _html = computed(() => isEditing.value ? editingPayload.value.html : props.html)
     const _tagColor = computed(() => isEditing.value ? editingPayload.value.tag?.color : props.tag?.color)
@@ -96,6 +107,7 @@ export default createComponent({
       editingId,
       editingPayload,
       isEditing,
+      isLoading,
       _title,
       _html,
       _tagColor,

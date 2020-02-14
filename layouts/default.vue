@@ -13,7 +13,7 @@
         height="40px"
         :src="logo"
         :alt="subTitle"
-      />
+      ></v-img>
       <v-toolbar-title>{{ title }}</v-toolbar-title>
       <v-spacer />
       <v-app-bar-nav-icon color="primary"/>

@@ -1,68 +1,59 @@
 <template>
-  <div>
-    <v-skeleton-loader
-      class="mx-auto"
-      max-width="720"
-      type="article"
-      v-if="isLoading"
-    ></v-skeleton-loader>
-
-    <v-card
-      outlined
-      class="mx-auto card-post"
-      max-width="720"
-      v-if="!isLoading"
-      :style="{ borderLeft: `solid 10px ${_tagColor} !important` }"
-    >
-      <v-card-title>
-        <!-- <v-avatar left size="36" class="log-avatar">
-          <v-img src="https://cdn.vuetifyjs.com/images/john.jpg" alt="John"/>
-        </v-avatar> -->
-        <div class="headline">
-          {{ _title }}
-        </div>
-        <v-spacer />
-        <span class="overline blue-grey--text text--lighten-2">
-          {{ _published }}
-        </span>
-        <v-btn
-          class="link-share"
-          color="blue-grey lighten-3"
-          text
-          icon
+  <v-card
+    outlined
+    class="mx-auto card-post"
+    max-width="720"
+    v-if="!isLoading"
+    :style="{ borderLeft: `solid 10px ${_tagColor} !important` }"
+  >
+    <v-card-title>
+      <!-- <v-avatar left size="36" class="log-avatar">
+        <v-img src="https://cdn.vuetifyjs.com/images/john.jpg" alt="John"/>
+      </v-avatar> -->
+      <div class="headline">
+        {{ _title }}
+      </div>
+      <v-spacer />
+      <span class="overline blue-grey--text text--lighten-2">
+        {{ _published }}
+      </span>
+      <v-btn
+        class="link-share"
+        color="blue-grey lighten-3"
+        text
+        icon
+        small
+        @click.stop="shareClick"
+      >
+        <v-icon left>mdi-share-variant</v-icon>
+      </v-btn>
+    </v-card-title>
+    <v-card-text>
+      <div v-html="_html"></div>
+    </v-card-text>
+    <v-card-actions>
+      <!-- <v-card-subtitle> -->
+        <!-- <v-chip
           small
-          @click.stop="shareClick"
+          class="mr-2 overline"
+          text-color="white"
+          :color="_tagColor"
         >
-          <v-icon left>mdi-share-variant</v-icon>
-        </v-btn>
-      </v-card-title>
-      <v-card-text>
-        <div v-html="_html"></div>
-      </v-card-text>
-      <v-card-actions>
-        <v-card-subtitle>
-          <!-- <v-chip
-            small
-            class="mr-2 overline"
-            text-color="white"
-            :color="_tagColor"
-          >
-            {{ _tagName }}
-          </v-chip> -->
-        </v-card-subtitle>
-        <v-spacer />
-        <v-btn
-          color="primary"
-          text
-          v-if="canEditLog"
-          @click.stop="editClick"
-        >
-          <v-icon left>mdi-pencil</v-icon>
-          Edit
-        </v-btn>
-      </v-card-actions>
-    </v-card>
-  </div>
+          {{ _tagName }}
+        </v-chip> -->
+      <!-- </v-card-subtitle> -->
+      <v-spacer />
+      <v-btn
+        color="primary"
+        text
+        v-if="canEditLog"
+        @click.stop="editClick"
+      >
+        <v-icon left>mdi-pencil</v-icon>
+        Edit
+      </v-btn>
+    </v-card-actions>
+  </v-card>
 </template>
 
 <script lang="ts">

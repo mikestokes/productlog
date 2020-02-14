@@ -1,8 +1,9 @@
 <template>
   <v-card
     outlined
-    class="mx-auto card-post border-left-feature"
+    class="mx-auto card-post"
     max-width="720"
+    :style="{ borderLeft: `solid 10px ${_tagColor} !important` }"
   >
     <v-card-title>
       <!-- <v-avatar left size="36" class="log-avatar">
@@ -107,9 +108,6 @@ export default createComponent({
 </script>
 
 <style lang="scss" scoped>
-.border-left-feature {
-  border-left: solid 10px red !important;
-}
 .v-card__title + .v-card__subtitle {
   margin-top: -6px;
 }

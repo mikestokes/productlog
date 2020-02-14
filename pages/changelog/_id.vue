@@ -71,10 +71,7 @@ export default createComponent({
 .row-card {
   .card-post {
     margin-bottom: 24px;
-    // border: solid 1px #eceff8 !important;
-    & .border-left-feature {
-      border-left: solid 10px red !important;
-    }
+    border: solid 1px #eceff8 !important;
   }
 }
 </style>

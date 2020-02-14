@@ -1,7 +1,7 @@
 <template>
   <v-card
     outlined
-    class="mx-auto card-post"
+    class="mx-auto card-post border-left-feature"
     max-width="720"
   >
     <v-card-title>
@@ -30,16 +30,16 @@
       <div v-html="_html"></div>
     </v-card-text>
     <v-card-actions>
-      <v-card-subtitle >
-      <v-chip
-        small
-        class="mr-2 overline"
-        text-color="white"
-        :color="_tagColor"
-      >
-        {{ _tagName }}
-      </v-chip>
-    </v-card-subtitle>
+      <v-card-subtitle>
+        <!-- <v-chip
+          small
+          class="mr-2 overline"
+          text-color="white"
+          :color="_tagColor"
+        >
+          {{ _tagName }}
+        </v-chip> -->
+      </v-card-subtitle>
       <v-spacer />
       <v-btn
         color="primary"
@@ -107,6 +107,9 @@ export default createComponent({
 </script>
 
 <style lang="scss" scoped>
+.border-left-feature {
+  border-left: solid 10px red !important;
+}
 .v-card__title + .v-card__subtitle {
   margin-top: -6px;
 }

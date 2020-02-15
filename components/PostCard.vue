@@ -27,6 +27,7 @@
         <v-icon left>mdi-share-variant</v-icon>
       </v-btn>
     </v-card-title>
+
     <v-card-subtitle>
       <v-chip
         x-small
@@ -36,10 +37,16 @@
       >
         {{ _tagName }}
       </v-chip>
+      <span 
+        class="label-draft overline red--text text--darken-2" 
+        v-if="draft"
+      >DRAFT</span>
     </v-card-subtitle>
+
     <v-card-text>
       <div v-html="_html"></div>
     </v-card-text>
+    
     <v-card-actions>
       <v-spacer />
       <v-btn
@@ -125,5 +132,7 @@ export default createComponent({
 .link-share {
   margin-left: 16px;
 }
-
+.label-draft {
+  font-weight: 600;
+}
 </style>

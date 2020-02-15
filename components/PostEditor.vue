@@ -10,6 +10,19 @@
     </v-toolbar>
 
     <v-container class="d-flex flex-column">
+      <!-- Title -->
+      <v-row>
+        <v-col>
+          <v-text-field 
+            v-model="title"
+            outlined
+            hide-details
+            label="Title of the post"
+            class="headline font-weight-bold"
+          ></v-text-field>
+        </v-col>
+      </v-row>
+
       <!-- Tag and Publish Date -->
       <v-row>
         <!-- Tag -->
@@ -59,19 +72,6 @@
               @change="dateMenu = false"
             ></v-date-picker>
           </v-menu>
-        </v-col>
-      </v-row>
-
-      <!-- Title -->
-      <v-row>
-        <v-col>
-          <v-text-field 
-            v-model="title"
-            outlined
-            hide-details
-            label="Title of the post"
-            class="headline font-weight-bold"
-          ></v-text-field>
         </v-col>
       </v-row>
 

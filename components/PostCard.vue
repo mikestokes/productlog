@@ -136,3 +136,13 @@ export default createComponent({
   font-weight: 600;
 }
 </style>
+
+<style lang="scss">
+.v-card__text {
+  code {
+    width: 100%;
+    padding: 4px;
+    box-shadow: none;
+  }
+}
+</style>

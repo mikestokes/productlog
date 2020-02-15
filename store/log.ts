@@ -4,10 +4,30 @@ import { log, entries } from '../firebase/collections'
 import { RootState } from '~/store'
 import { LogState } from './types'
 import { emptyEditingPayload } from './types'
-import marked from 'marked'
+import MarkdownIt from 'markdown-it'
+import emoji from 'markdown-it-emoji'
+import hljs from 'highlight.js'
+import 'highlight.js/styles/github.css'
 
 // NOTE: Nuxt automatically wires up state modules for each file
 // in the store folder.
+
+const md  = new MarkdownIt('default', {
+  html: false,
+  xhtmlOut: false,
+  typographer: true,
+  linkify: true,
+  breaks: false,
+  highlight: function (str, lang) {
+    if (lang && hljs.getLanguage(lang)) {
+      try {
+        return hljs.highlight(lang, str).value;
+      } catch (__) {}
+    }
+
+    return ''; // use external default escaping
+  }
+}).use(emoji)
 
 export type LogModuleState = ReturnType<() => LogState>
 
@@ -82,7 +102,7 @@ export const mutations: MutationTree<LogModuleState> = {
       published: new Date(),
       title: 'Title',
       markdown: '# Heading',
-      html: marked('# Heading'),
+      html: md.render('# Heading'),
       tag: { 
         ...state.tagTypes[0] 
       }
@@ -92,7 +112,7 @@ export const mutations: MutationTree<LogModuleState> = {
     state.editingPayload = {
       ...state.editingPayload,
       ...payload,
-      html: marked(payload.markdown || state.editingPayload.markdown)
+      html: md.render(payload.markdown || state.editingPayload.markdown)
     }
   }
 }

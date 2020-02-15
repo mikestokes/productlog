@@ -27,20 +27,20 @@
         <v-icon left>mdi-share-variant</v-icon>
       </v-btn>
     </v-card-title>
+    <v-card-subtitle>
+      <v-chip
+        x-small
+        class="mr-2 overline"
+        text-color="white"
+        :color="_tagColor"
+      >
+        {{ _tagName }}
+      </v-chip>
+    </v-card-subtitle>
     <v-card-text>
       <div v-html="_html"></div>
     </v-card-text>
     <v-card-actions>
-      <!-- <v-card-subtitle> -->
-        <!-- <v-chip
-          small
-          class="mr-2 overline"
-          text-color="white"
-          :color="_tagColor"
-        >
-          {{ _tagName }}
-        </v-chip> -->
-      <!-- </v-card-subtitle> -->
       <v-spacer />
       <v-btn
         color="primary"
@@ -109,12 +109,14 @@ export default createComponent({
 
 <style lang="scss" scoped>
 .v-card__title + .v-card__subtitle {
-  margin-top: -6px;
+  margin-top: -10px;
 }
 .v-card__subtitle {
-  padding-top: 0;
-  padding-bottom: 0;
-  padding-left: 8px;
+  padding-left: 16px;
+}
+.v-chip.v-size--x-small {
+  height: 18px;
+  border-radius: 9px;
 }
 .log-avatar {
   margin-right: 12px;
@@ -122,4 +124,5 @@ export default createComponent({
 .link-share {
   margin-left: 16px;
 }
+
 </style>

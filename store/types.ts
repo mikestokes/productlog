@@ -1,6 +1,7 @@
 
 export interface EditingPayload {
   draft?: boolean,
+  pinned?: boolean,
   published?: Date,
   title?: string,
   markdown?: string,
@@ -10,6 +11,7 @@ export interface EditingPayload {
 
 export const emptyEditingPayload = (): EditingPayload => ({
   draft: undefined,
+  pinned: undefined,
   published: undefined,
   title: undefined,
   markdown: undefined,

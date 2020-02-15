@@ -15,6 +15,7 @@
           v-for="(entry, index) in entries" :key="index"
             :id="entry.id"
             :draft="entry.draft"
+            :pinned="entry.pinned"
             :published="entry.published"
             :title="entry.title"
             :markdown="entry.markdown"

@@ -78,6 +78,7 @@ export const mutations: MutationTree<LogModuleState> = {
     state.editingId = undefined
     state.editingPayload = {
       draft: false,
+      pinned: false,
       published: new Date(),
       title: 'Title',
       markdown: '# Heading',

@@ -68,6 +68,7 @@ export default createComponent({
       required: false     // on initial load, won't exist
     },
     draft: Boolean,
+    pinned: Boolean,
     published: Object,
     title: String,
     markdown: String,

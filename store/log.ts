@@ -6,6 +6,7 @@ import { LogState } from './types'
 import { emptyEditingPayload } from './types'
 import MarkdownIt from 'markdown-it'
 import emoji from 'markdown-it-emoji'
+import twemoji from 'twemoji'
 import hljs from 'highlight.js'
 import 'highlight.js/styles/github.css'
 
@@ -21,13 +22,18 @@ const md  = new MarkdownIt('default', {
   highlight: function (str, lang) {
     if (lang && hljs.getLanguage(lang)) {
       try {
-        return hljs.highlight(lang, str).value;
+        return hljs.highlight(lang, str).value
       } catch (__) {}
     }
 
     return ''; // use external default escaping
   }
 }).use(emoji)
+
+md.renderer.rules.emoji = function(token, idx) {
+  return twemoji.parse(token[idx].content)
+}
+
 
 export type LogModuleState = ReturnType<() => LogState>
 

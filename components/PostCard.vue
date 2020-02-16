@@ -144,5 +144,8 @@ export default createComponent({
     padding: 4px;
     box-shadow: none;
   }
+  .emoji {
+    height: 1.6em;
+  }
 }
 </style>

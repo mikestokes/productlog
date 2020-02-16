@@ -140,12 +140,26 @@ export default createComponent({
 <style lang="scss">
 .v-card__text {
   code {
-    width: 100%;
-    padding: 4px;
+    padding: 2px;
     box-shadow: none;
+  }
+  pre code {
+    width: 100%;
+  }
+  blockquote {
+    border-left: solid 5px #efefef;
+    color: rgba(0, 0, 0, 0.4);
+    p {
+      padding: 4px;
+      padding-left: 8px;
+      margin-bottom: 0;
+    }
   }
   .emoji {
     height: 1.6em;
+  }
+  ul, blockquote, pre code {
+    margin-bottom: 16px;
   }
 }
 </style>

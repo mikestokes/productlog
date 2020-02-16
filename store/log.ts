@@ -7,6 +7,10 @@ import { emptyEditingPayload } from './types'
 import MarkdownIt from 'markdown-it'
 import emoji from 'markdown-it-emoji'
 import twemoji from 'twemoji'
+import mila from 'markdown-it-link-attributes'
+import mdvideo from 'markdown-it-video'
+import mdsup from 'markdown-it-sup'
+import mdsub from 'markdown-it-sub'
 import hljs from 'highlight.js'
 import 'highlight.js/styles/github.css'
 
@@ -28,7 +32,21 @@ const md  = new MarkdownIt('default', {
 
     return ''; // use external default escaping
   }
-}).use(emoji)
+})
+.use(emoji)
+.use(mdsup)
+.use(mdsub)
+.use(mila, {
+  attrs: {
+    target: '_blank',
+    rel: 'noopener'
+  }
+}).use(mdvideo, {
+  youtube: { width: 640, height: 390 },
+  vimeo: { width: 'auto', height: 'auto' },
+  vine: { width: 600, height: 600, embed: 'simple' },
+  prezi: { width: 550, height: 400 }
+})
 
 md.renderer.rules.emoji = function(token, idx) {
   return twemoji.parse(token[idx].content)

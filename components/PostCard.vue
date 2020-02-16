@@ -3,7 +3,7 @@
     outlined
     class="mx-auto card-post"
     max-width="720"
-    :style="{ borderLeft: `solid 10px ${_tagColor} !important` }"
+    :style="{ borderLeft: `solid 10px ${draft ? '#D32F2F' : _tagColor} !important` }"
   >
     <v-card-title>
       <!-- <v-avatar left size="36" class="log-avatar">
@@ -160,6 +160,12 @@ export default createComponent({
   }
   ul, blockquote, pre code {
     margin-bottom: 16px;
+  }
+  iframe {
+    &.embed-responsive-item {
+      width: 100% !important;
+      height: auto !important;
+    }
   }
 }
 </style>

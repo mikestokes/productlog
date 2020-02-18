@@ -4,11 +4,11 @@
       justify="center"
       align="center"
       class="hero pa-4">
-      <v-col xs="8">
+      <v-col>
         <h2 class="display-1 white--text mb-3">
           Welcome to Product Log!
         </h2>
-        <p class="body-1 white--text mb-6">
+        <p class="body-1 white--text mb-8">
           Awesome changelog, release notes and what's new widget for your product
         </p>
         <v-btn 

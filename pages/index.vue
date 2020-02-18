@@ -20,7 +20,8 @@
         <v-btn 
           class="mt-2 white--text"
           large 
-          text>
+          depressed
+          color="blue darken-1">
           <v-icon left>mdi-text-subject</v-icon> 
           View docs
         </v-btn>

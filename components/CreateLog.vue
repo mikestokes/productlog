@@ -67,9 +67,9 @@ export default createComponent({
       required: (value: string) => !!value || 'Required.',
       length: (value: string) => value.length >= 3 || 'Minimum 3 characters.',
       name: (value: string) => {
-        const pattern = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
+        const pattern = /^[a-z0-9-_]+$/
         return pattern.test(value) || 'Invalid name.'
-      },
+      }
     })
 
     return {

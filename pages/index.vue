@@ -45,17 +45,20 @@ export default createComponent({
 .hero {
   height: 400px;
   background-color: $dark-blue;
+  @media only screen and (min-width: $mobile-breakpoint) {
+    height: 500px;
+  }
+}
+</style>
 
+<style lang="scss">
+.v-application {
   .display-1 {
     font-weight: 500;
     font-size: 1.65rem !important;
   }
-
-  @media only screen and (min-width: 500px) {
-    height: 500px;
-
+  @media only screen and (min-width: $mobile-breakpoint) {
     .display-1 {
-      font-weight: 500;
       font-size: 2.125rem !important;
     }
   }

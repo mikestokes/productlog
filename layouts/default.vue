@@ -25,6 +25,7 @@
       </v-btn>
     </v-app-bar>
     <v-content class="content-main">
+      <CreateLog />
       <nuxt />
     </v-content>
     <v-navigation-drawer
@@ -42,10 +43,12 @@
 <script lang="ts">
 import { createComponent, computed, ref } from '@vue/composition-api'
 import PostEditor from '~/components/PostEditor.vue'
+import CreateLog from '~/components/CreateLog.vue'
 
 export default createComponent({
   components: {
-    PostEditor
+    PostEditor,
+    CreateLog
   },
 
   setup(props, { root }) {

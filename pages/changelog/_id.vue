@@ -29,10 +29,9 @@
 </template>
 
 <script lang="ts">
-import { createComponent, computed, PropType, onServerPrefetch, onMounted } from '@vue/composition-api'
+import { createComponent, computed, onServerPrefetch, onMounted } from '@vue/composition-api'
 import AddPostButton from '~/components/AddPostButton.vue'
 import PostCard from '~/components/PostCard.vue'
-import { useCollection } from '~/use/use-collection'
 import { Post, Log } from '~/store/types'
 
 export default createComponent({
@@ -42,7 +41,6 @@ export default createComponent({
   },
 
   setup (props, { root }) {
-    const data = useCollection()
 
     onServerPrefetch(async () => {
       // Bind Firestore on the server for SSR
@@ -61,15 +59,15 @@ export default createComponent({
 
     return {
       log,
-      entries,
-      data
+      entries
     }
   }
 })
 </script>
 
-<style lang="scss">
+<style lang="scss" scoped>
 .row-card {
+  padding-top: 72px !important;
   .card-post {
     margin-bottom: 36px;
     border: solid 1px #eceff8 !important;

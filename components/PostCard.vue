@@ -6,9 +6,6 @@
     :style="{ borderLeft: `solid 10px ${draft ? '#D32F2F' : _tagColor} !important` }"
   >
     <v-card-title>
-      <!-- <v-avatar left size="36" class="log-avatar">
-        <v-img src="https://cdn.vuetifyjs.com/images/john.jpg" alt="John"/>
-      </v-avatar> -->
       <div class="headline">
         {{ _title }}
       </div>

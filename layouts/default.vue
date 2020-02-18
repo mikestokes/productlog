@@ -1,24 +1,27 @@
 <template>
   <v-app>
     <v-app-bar
-      color="white"
       class="toolbar-main"
+      :class="{ 'toolbar-root': isRoot === true }"
+      :dark="isRoot"
       elevate-on-scroll
       absolute
-      flat
-    >
-      <v-img
-        class="image-logo"
-        max-width="40px"
-        height="40px"
-        :src="logo"
-        :alt="subTitle"
-      ></v-img>
-      <v-toolbar-title>{{ title }}</v-toolbar-title>
+      flat>
+      <a :href="link" target="_blank">
+        <v-img
+          class="image-logo mr-3"
+          max-width="32px"
+          height="32px"
+          :src="logo"
+          :alt="subTitle" />
+      </a>
+      <v-toolbar-title class="font-weight-medium">
+        {{ title }}
+      </v-toolbar-title>
       <v-spacer />
-      <v-app-bar-nav-icon color="primary"/>
+      <v-app-bar-nav-icon/>
       <v-btn icon>
-        <v-icon color="primary">mdi-account-circle-outline</v-icon>
+        <v-icon>mdi-account-circle-outline</v-icon>
       </v-btn>
     </v-app-bar>
     <v-content class="content-main">
@@ -30,9 +33,8 @@
       :width="512"
       temporary
       fixed
-      app
-    >
-     <PostEditor/>
+      app>
+     <PostEditor />
     </v-navigation-drawer>
   </v-app>
 </template>
@@ -50,8 +52,9 @@ export default createComponent({
     const title = ref('Product Log')
     const subTitle = ref('www.productlog.dev')
     const link = ref('https://www.productlog.dev')
-    const logo = ref('https://cdn.vuetifyjs.com/images/parallax/material.jpg')
+    const logo = ref('/logo.svg')
 
+    const isRoot = computed(() => root.$route.fullPath === '/')
     const editing = computed((): boolean => root.$store.getters['log/editing'])
     const editingDrawer = computed({
       get: () => editing.value,
@@ -66,6 +69,7 @@ export default createComponent({
       subTitle,
       link,
       logo,
+      isRoot,
       editing,
       editingDrawer
     }
@@ -76,14 +80,17 @@ export default createComponent({
 <style lang="scss">
 .toolbar-main {
   .v-toolbar__content {
-    border-bottom: solid 1px #eceff8;
-    .image-logo {
-      margin-right: 16px;
+    border-bottom: solid 1px $light-grey-blue;
+  }
+
+  &.theme--dark {
+    background-color: $dark-blue !important;
+    .v-toolbar__content {
+      border-bottom: none !important;
     }
   }
 }
 .content-main {
-  padding-top: 72px !important;
-  background-color: #f8fbfd;
+  background-color: $grey-blue;
 }
 </style>

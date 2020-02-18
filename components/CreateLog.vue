@@ -96,6 +96,12 @@ export default createComponent({
     h4 {
       padding-bottom: 48px;
     }
+    h1 {
+      padding-bottom: 24px;
+    }
+    .theme--light.v-input input {
+      color: rgba(0, 0, 0, 0.5);
+    }
     .v-text-field {
       padding-bottom: 48px;
     }

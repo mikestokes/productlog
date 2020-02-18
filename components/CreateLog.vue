@@ -10,14 +10,17 @@
       class="pa-4"
       cols="9">
       <v-col class="col-content">
-        <v-btn icon class="button-close">
+        <v-btn 
+          icon 
+          class="button-close" 
+          @click="dialog = false">
           <v-icon>mdi-close</v-icon>
         </v-btn>
         <h4 class="subtitle-1 font-weight-medium grey--text text--darken-1">
           Create a changelog
         </h4>
         <h1 class="display-1 black--text mb-3">
-          Let's start with a name for your changelog
+          Let's start with a name for your <span class="pink--text">changelog</span>
         </h1>
         <v-text-field
           class="display-1 grey--text"
@@ -89,6 +92,15 @@ export default createComponent({
       position: absolute;
       top: 12px;
       right: 12px;
+    }
+    h4 {
+      padding-bottom: 48px;
+    }
+    .v-text-field {
+      padding-bottom: 48px;
+    }
+    .v-input--checkbox {
+      padding-bottom: 8px;
     }
     @media only screen and (min-width: $mobile-breakpoint) {
       margin-left: 48px;

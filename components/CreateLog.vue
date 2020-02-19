@@ -11,6 +11,7 @@
       cols="9">
       <v-col class="col-content">
         <v-form
+          ref="formcreate"
           v-model="valid">
           <v-btn 
             icon 
@@ -51,7 +52,8 @@
             large 
             depressed
             color="blue darken-2"
-            :disabled="!valid">
+            :disabled="!valid"
+            @click="submit">
             Continue</v-btn>
         </v-form>
       </v-col>
@@ -79,12 +81,20 @@ export default createComponent({
       }
     })
 
+    const submit = () => {
+      if (!(root.$refs.formcreate as Vue & { validate: () => boolean }).validate()) 
+        return
+
+      
+    }
+
     return {
       dialog,
       name,
       acceptTerms,
       valid,
-      rules
+      rules,
+      submit
     }
   }
 })

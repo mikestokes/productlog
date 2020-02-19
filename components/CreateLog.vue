@@ -10,46 +10,50 @@
       class="pa-4"
       cols="9">
       <v-col class="col-content">
-        <v-btn 
-          icon 
-          class="button-close" 
-          @click="dialog = false">
-          <v-icon>mdi-close</v-icon>
-        </v-btn>
-        <h4 class="subtitle-1 font-weight-medium grey--text text--darken-1">
-          Create a changelog
-        </h4>
-        <h1 class="display-1 black--text mb-3">
-          Let's start with a name for your <span class="pink--text">changelog</span>
-        </h1>
-        <v-text-field
-          class="display-1 grey--text"
-          label="Enter your changelog name"
-          minLength="3"
-          v-model="name"
-          :rules="[rules.required, rules.length, rules.name]"
-        ></v-text-field>
-        <v-checkbox 
-          v-model="acceptTerms">
-          <template v-slot:label>
-            <div>
-              I accept the
-              <a
-                target="_blank"
-                href="http://vuetifyjs.com"
-                @click.stop>
-                Product Log terms
-              </a>
-            </div>
-          </template>
-        </v-checkbox>
-        <v-btn 
-          class="mt-2 mr-2 white--text" 
-          large 
-          depressed
-          color="blue darken-2"
-          :disabled="!acceptTerms">
-          Continue</v-btn>
+        <v-form
+          v-model="valid">
+          <v-btn 
+            icon 
+            class="button-close" 
+            @click="dialog = false">
+            <v-icon>mdi-close</v-icon>
+          </v-btn>
+          <h4 class="subtitle-1 font-weight-medium grey--text text--darken-1">
+            Create a changelog
+          </h4>
+          <h1 class="display-1 black--text mb-3">
+            Let's start with a name for your <span class="pink--text">changelog</span>
+          </h1>
+          <v-text-field
+            class="display-1 grey--text"
+            label="Enter your changelog name"
+            minLength="3"
+            v-model="name"
+            :rules="[rules.required, rules.length, rules.name]"
+          ></v-text-field>
+          <v-checkbox 
+            v-model="acceptTerms"
+            :rules="[rules.accepted]">
+            <template v-slot:label>
+              <div>
+                I accept the
+                <a
+                  target="_blank"
+                  href="http://vuetifyjs.com"
+                  @click.stop>
+                  Product Log terms
+                </a>
+              </div>
+            </template>
+          </v-checkbox>
+          <v-btn 
+            class="mt-2 mr-2 white--text" 
+            large 
+            depressed
+            color="blue darken-2"
+            :disabled="!valid">
+            Continue</v-btn>
+        </v-form>
       </v-col>
     </v-row>
   </v-dialog>
@@ -63,7 +67,9 @@ export default createComponent({
     const dialog = ref(true)
     const name = ref('')
     const acceptTerms = ref()
+    const valid = ref(false)
     const rules = reactive({
+      accepted: (value: boolean) => !!value || 'Please accept the terms.',
       required: (value: string) => !!value || 'Required.',
       length: (value: string) => value.length >= 3 || 'Minimum 3 characters.',
       name: (value: string) => {
@@ -77,6 +83,7 @@ export default createComponent({
       dialog,
       name,
       acceptTerms,
+      valid,
       rules
     }
   }

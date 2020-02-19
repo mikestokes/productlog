@@ -71,13 +71,13 @@ export default createComponent({
     const acceptTerms = ref()
     const valid = ref(false)
     const rules = reactive({
-      accepted: (value: boolean) => !!value || 'Please accept the terms.',
-      required: (value: string) => !!value || 'Required.',
-      length: (value: string) => value.length >= 3 || 'Minimum 3 characters.',
+      accepted: (value: boolean) => !!value || 'Please accept the terms',
+      required: (value: string) => !!value || 'Changelog name is required',
+      length: (value: string) => value.length >= 3 || 'Changelog name must be at least 3 characters long',
       name: (value: string) => {
         // Allow a-z, 0-9, -, _, ignore case
         const pattern = /^[a-z0-9-_]+$/ig
-        return pattern.test(value) || 'Invalid name.'
+        return pattern.test(value) || 'Changelog names can only contain: letters, numbers, - and _ characters'
       }
     })
 
@@ -125,6 +125,9 @@ export default createComponent({
     }
     .v-input--checkbox {
       padding-bottom: 8px;
+    }
+    .v-messages__message {
+      line-height: 1.2rem;
     }
     @media only screen and (min-width: $mobile-breakpoint) {
       margin-left: 48px;

@@ -49,6 +49,12 @@ module.exports = {
     '@nuxtjs/axios',
   ],
   /*
+  ** API
+  */
+  serverMiddleware: [
+    { path: '/api/log', handler: '~/api/log.ts' }
+  ],
+  /*
   ** Axios module configuration
   ** See https://axios.nuxtjs.org/options
   */

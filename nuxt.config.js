@@ -1,3 +1,4 @@
+const bodyParser = require('body-parser')
 const colors = require('vuetify/es5/util/colors').default
 
 module.exports = {
@@ -52,7 +53,8 @@ module.exports = {
   ** API
   */
   serverMiddleware: [
-    { path: '/api/log', handler: '~/api/log.ts' }
+    bodyParser.json(),
+    '~/api'
   ],
   /*
   ** Axios module configuration

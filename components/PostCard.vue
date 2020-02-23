@@ -60,12 +60,12 @@
 </template>
 
 <script lang="ts">
-import { createComponent, computed, PropType } from '@vue/composition-api'
+import { defineComponent, computed, PropType } from '@vue/composition-api'
 import { Tag, EditingPayload } from '~/store/types'
 import { fromNow } from '~/utils/date'
 import { Timestamp } from '~/firebase'
 
-export default createComponent({
+export default defineComponent({
   props: {
     id: {
       type: String,

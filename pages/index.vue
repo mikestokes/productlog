@@ -8,17 +8,17 @@
         <h2 class="display-1 white--text mb-3">
           Welcome to Product Log!
         </h2>
-        <p class="body-1 white--text mb-8">
+        <p class="body-1 white--text mb-6">
           Awesome changelog, release notes and what's new widget for your product
         </p>
         <v-btn 
-          class="mt-2 mr-2 blue--text text--darken-2" 
+          class="mt-4 mr-2 blue--text text--darken-2" 
           large 
           depressed 
           color="white">
           Create a changelog</v-btn>
         <v-btn 
-          class="mt-2 white--text"
+          class="mt-4 white--text"
           large 
           depressed
           color="blue darken-1">
@@ -31,9 +31,9 @@
 </template>
 
 <script lang="ts">
-import { createComponent } from '@vue/composition-api'
+import { defineComponent } from '@vue/composition-api'
 
-export default createComponent({
+export default defineComponent({
   setup (props, { root }) {
     return {
     }

@@ -154,11 +154,11 @@
 </template>
 
 <script lang="ts">
-import { createComponent, computed, ref } from '@vue/composition-api'
+import { defineComponent, computed, ref } from '@vue/composition-api'
 import { fromNow, dateFromDateOrTimestamp } from '~/utils/date'
 import { EditingPayload, Tag } from '~/store/types'
 
-export default createComponent({
+export default defineComponent({
   setup (props, { root }) {
     const dateMenu = ref(false)
 

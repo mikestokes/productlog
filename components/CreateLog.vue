@@ -62,9 +62,9 @@
 </template>
 
 <script lang="ts">
-import { createComponent, ref, computed, reactive } from '@vue/composition-api'
+import { defineComponent, ref, computed, reactive } from '@vue/composition-api'
 
-export default createComponent({
+export default defineComponent({
   setup (props, { root  }) {
     const dialog = ref(true)
     const name = ref('')

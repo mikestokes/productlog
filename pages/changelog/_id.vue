@@ -29,12 +29,12 @@
 </template>
 
 <script lang="ts">
-import { createComponent, computed, onServerPrefetch, onMounted } from '@vue/composition-api'
+import { defineComponent, computed, onServerPrefetch, onMounted } from '@vue/composition-api'
 import AddPostButton from '~/components/AddPostButton.vue'
 import PostCard from '~/components/PostCard.vue'
 import { Post, Log } from '~/store/types'
 
-export default createComponent({
+export default defineComponent({
   components: {
     AddPostButton,
     PostCard

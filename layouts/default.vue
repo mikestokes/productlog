@@ -41,11 +41,11 @@
 </template>
 
 <script lang="ts">
-import { createComponent, computed, ref } from '@vue/composition-api'
+import { defineComponent, computed, ref } from '@vue/composition-api'
 import PostEditor from '~/components/PostEditor.vue'
 import CreateLog from '~/components/CreateLog.vue'
 
-export default createComponent({
+export default defineComponent({
   components: {
     PostEditor,
     CreateLog

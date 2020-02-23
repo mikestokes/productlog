@@ -16,7 +16,7 @@
     "@types/highlight.js": "^9.12.3",
     "@types/markdown-it": "^0.0.9",
     "@types/twemoji": "^12.1.0",
-    "@vue/composition-api": "^0.3.4",
+    "@vue/composition-api": "^0.4.0",
     "cross-env": "^5.2.0",
     "date-fns": "^2.8.1",
     "dayjs": "^1.8.19",

@@ -93,5 +93,11 @@ module.exports = {
     */
     extend (config, ctx) {
     }
-  }
+  },
+  /*
+  ** Watch (custom files  ) configuration
+  */
+  watch: [
+    '~/api/*.js'
+  ]
 }

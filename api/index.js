@@ -17,7 +17,7 @@ router.use((req, res, next) => {
 })
 
 
-router.get('/test', (req, res) => {
+router.get('/hello', (req, res) => {
   res.json({ ok: true })
 })
 

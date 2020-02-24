@@ -1,4 +1,3 @@
-const bodyParser = require('body-parser')
 const colors = require('vuetify/es5/util/colors').default
 
 module.exports = {
@@ -50,13 +49,6 @@ module.exports = {
     '@nuxtjs/axios',
   ],
   /*
-  ** API
-  */
-  serverMiddleware: [
-    bodyParser.json(),
-    '~/api'
-  ],
-  /*
   ** Axios module configuration
   ** See https://axios.nuxtjs.org/options
   */
@@ -93,11 +85,5 @@ module.exports = {
     */
     extend (config, ctx) {
     }
-  },
-  /*
-  ** Watch (custom files  ) configuration
-  */
-  watch: [
-    '~/api/*.js'
-  ]
+  }
 }

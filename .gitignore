@@ -9,6 +9,7 @@ yarn-error.log*
 
 # Firebase private config
 firebaseConfig.js
+.firebaserc
 
 # Runtime data
 pids

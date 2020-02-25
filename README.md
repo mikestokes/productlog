@@ -15,9 +15,19 @@
 
 ## Installation
 
+## Firebase
+
 ### Firebase Configuration
 
-### Build
+### Firestore
+
+### Authentication
+
+### Serverless Functions
+
+## Build
+
+### Application
 
 ``` bash
 # install dependencies
@@ -35,5 +45,9 @@ $ yarn generate
 ```
 
 For detailed explanation on how things work, check out [Nuxt.js docs](https://nuxtjs.org).
+
+### Serverless Functions
+
+## Deploy
 
 ## Licensing

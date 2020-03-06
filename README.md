@@ -48,6 +48,19 @@ For detailed explanation on how things work, check out [Nuxt.js docs](https://nu
 
 ### Serverless Functions
 
+``` bash
+# install dependencies
+$ cd functions
+$ yarn
+
+# serve with hot reload at localhost:3000
+$ cd functions
+$ yarn serve
+
+# build for production and deploy
+$ firebase deploy
+```
+
 ## Deploy
 
 ## Licensing

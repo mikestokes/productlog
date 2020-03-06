@@ -146,6 +146,14 @@ export const actions: ActionTree<LogModuleState, RootState> = {
     await bindFirestoreRef('log', log(id), { wait: true })
     await bindFirestoreRef('entries', entries(id), { wait: true })
   }),
+  async isNameAvailable ({ state, commit }, search) {
+    try {
+      const docRef = await log(search).get();
+      return !docRef.exists
+    } catch (e) {
+      console.error(e)
+    }
+  },
   async saveEntry ({ state, commit }) {
     if (!state.log?.id) 
       return

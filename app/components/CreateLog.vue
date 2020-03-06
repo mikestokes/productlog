@@ -30,7 +30,9 @@
             label="Enter your changelog name"
             minLength="3"
             v-model="name"
+            :error-messages="nameErrors"
             :rules="[rules.required, rules.length, rules.name]"
+            :append-outer-icon="available ? 'mdi-check-circle' : ''"
           ></v-text-field>
           <v-checkbox 
             v-model="acceptTerms"
@@ -62,7 +64,7 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, ref, computed, reactive } from '@vue/composition-api'
+import { defineComponent, ref, computed, watch, reactive } from '@vue/composition-api'
 
 export default defineComponent({
   setup (props, { root  }) {
@@ -70,6 +72,8 @@ export default defineComponent({
     const name = ref('')
     const acceptTerms = ref()
     const valid = ref(false)
+    const available = ref(false)
+    const nameErrors = ref([])
     const rules = reactive({
       accepted: (value: boolean) => !!value || 'Please accept the terms',
       required: (value: string) => !!value || 'Changelog name is required',
@@ -81,10 +85,24 @@ export default defineComponent({
       }
     })
 
+    watch(name, async (name, prevName) => { 
+      // TODO: debounce
+      // TODO: make use of form validation
+      if (name.length <= 3) return
+
+      available.value = await root.$store.dispatch('log/isNameAvailable', name)
+
+      if (!available.value) {
+        // @ts-ignore
+        nameErrors.value.push('This changelog name is already taken')
+      } else {
+        nameErrors.value = []
+      }
+    })
+
     const submit = () => {
       if (!(root.$refs.formcreate as Vue & { validate: () => boolean }).validate()) 
         return
-
       
     }
 
@@ -93,6 +111,8 @@ export default defineComponent({
       name,
       acceptTerms,
       valid,
+      available,
+      nameErrors,
       rules,
       submit
     }

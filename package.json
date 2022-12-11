@@ -20,7 +20,7 @@
     "cross-env": "^5.2.0",
     "date-fns": "^2.8.1",
     "dayjs": "^1.8.19",
-    "express": "^4.16.4",
+    "express": "^4.17.3",
     "firebase": "^7.6.2",
     "highlight.js": "^9.18.1",
     "markdown-it": "^10.0.0",
